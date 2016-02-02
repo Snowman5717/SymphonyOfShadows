@@ -8,7 +8,7 @@
 // Sets default values
 APlayerCharacter::APlayerCharacter()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 90.f);
@@ -26,6 +26,7 @@ APlayerCharacter::APlayerCharacter()
 	Mesh1P->bCastDynamicShadow = false;
 	Mesh1P->CastShadow = false;
 
+
 	//BOX PICKUP CODE//
 	Hand = CreateDefaultSubobject<USceneComponent>(TEXT("Hand"));
 	Hand->AttachTo(FirstPersonCameraComponent);
@@ -41,8 +42,13 @@ APlayerCharacter::APlayerCharacter()
 void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 	bCurrentlyLiftingBox = false;
+
+	//FANTASY CAMERA CODE//
+	FantasyCounter = SaveGameInstance->SavedFantasyCounter;
+	UpdateCamera(FantasyCounter);
+	//FANTASY CAMERA CODE//
 
 }
 
@@ -67,6 +73,10 @@ void APlayerCharacter::Tick(float DeltaTime)
 	{
 		UGameplayStatics::PlaySoundAtLocation(GetWorld(), JumpSound, GetActorLocation());
 		isJumpingGroundCheck = false;
+	}
+	if (CameraIsChanging == true)
+	{
+		UpdateCamera(FantasyCounter);
 	}
 }
 
@@ -109,7 +119,7 @@ void APlayerCharacter::StartJump()
 //MOVEMENT CODE//
 void APlayerCharacter::MoveForward(float Value)
 {
-	
+
 	if (Value != 0.0f)
 	{
 		// add movement in that direction
@@ -118,12 +128,12 @@ void APlayerCharacter::MoveForward(float Value)
 	}
 	else
 		isWalkingForward = false;
-	
+
 }
 
 void APlayerCharacter::MoveRight(float Value)
 {
-	
+
 	if (Value != 0.0f)
 	{
 		// add movement in that direction
@@ -132,22 +142,22 @@ void APlayerCharacter::MoveRight(float Value)
 	}
 	else
 		isWalkingRight = false;
-	
+
 }
 
 void APlayerCharacter::TurnAtRate(float Rate)
 {
-		// calculate delta for this frame from the rate information
-		AddControllerYawInput(Rate * BaseTurnRate * GetWorld()->GetDeltaSeconds()); //yaw = horizontal rotation
-	
+	// calculate delta for this frame from the rate information
+	AddControllerYawInput(Rate * BaseTurnRate * GetWorld()->GetDeltaSeconds()); //yaw = horizontal rotation
+
 }
 
 void APlayerCharacter::LookUpAtRate(float Rate)
 {
-	
-		// calculate delta for this frame from the rate information
-		AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds()); //pitch vertical rotation
-	
+
+	// calculate delta for this frame from the rate information
+	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds()); //pitch vertical rotation
+
 }
 //MOVEMENT CODE END//
 
@@ -278,14 +288,9 @@ void APlayerCharacter::OnActorOverlap(AActor* OtherActor)
 	{
 		if (OtherActor->GetName().Contains("Fantasy"))
 		{
-			if (FantasyCounter == NULL)
-			{
-				FantasyCounter = 0;
-			}
-			if (FantasyCounter != NULL)
-			{
-				UpdateCamera(FantasyCounter);
-			}
+			FantasyCounter++;
+			SaveGameInstance->SavedFantasyCounter = FantasyCounter;
+			CameraIsChanging = true;
 		}
 	}
 }
@@ -301,27 +306,51 @@ void APlayerCharacter::OnActorOverlapEnd(AActor* OtherActor)
 
 void APlayerCharacter::UpdateCamera(float Counter)
 {
-	TheCameraToEffect = Cast<ACameraActor>(this->GetFirstPersonCameraComponent());
-
 	if (Counter == 0)
 	{
-		TheCameraToEffect->GetCameraComponent()->PostProcessSettings.FilmSaturation = 1;
-		TheCameraToEffect->GetCameraComponent()->PostProcessSettings.VignetteIntensity = 0;
+		GetFirstPersonCameraComponent()->PostProcessSettings.FilmSaturation = 1;
+		GetFirstPersonCameraComponent()->PostProcessSettings.VignetteIntensity = 0;
 	}
 	else if (Counter == 1)
 	{
-		TheCameraToEffect->GetCameraComponent()->PostProcessSettings.FilmSaturation = 1.2;
-		TheCameraToEffect->GetCameraComponent()->PostProcessSettings.VignetteIntensity = 0.1;
+		if (GetFirstPersonCameraComponent()->PostProcessSettings.FilmSaturation < 1.2)
+		{
+			GetFirstPersonCameraComponent()->PostProcessSettings.FilmSaturation += 0.005;
+			GetFirstPersonCameraComponent()->PostProcessSettings.VignetteIntensity += 0.0025;
+		}
+		else
+		{
+			GetFirstPersonCameraComponent()->PostProcessSettings.FilmSaturation = 1.2;
+			GetFirstPersonCameraComponent()->PostProcessSettings.VignetteIntensity = 0.1;
+			CameraIsChanging = false;
+		}
 	}
 	else if (Counter == 2)
 	{
-		TheCameraToEffect->GetCameraComponent()->PostProcessSettings.FilmSaturation = 1.35;
-		TheCameraToEffect->GetCameraComponent()->PostProcessSettings.VignetteIntensity = 0.2;
+		if (GetFirstPersonCameraComponent()->PostProcessSettings.FilmSaturation < 1.4)
+		{
+			GetFirstPersonCameraComponent()->PostProcessSettings.FilmSaturation += 0.005;
+			GetFirstPersonCameraComponent()->PostProcessSettings.VignetteIntensity += 0.0025;
+		}
+		else
+		{
+			GetFirstPersonCameraComponent()->PostProcessSettings.FilmSaturation = 1.4;
+			GetFirstPersonCameraComponent()->PostProcessSettings.VignetteIntensity = 0.2;
+			CameraIsChanging = false;
+		}
 	}
 	else if (Counter > 2)
 	{
-		TheCameraToEffect->GetCameraComponent()->PostProcessSettings.FilmSaturation = 1.5;
-		TheCameraToEffect->GetCameraComponent()->PostProcessSettings.VignetteIntensity = 0.3;
+		if (GetFirstPersonCameraComponent()->PostProcessSettings.FilmSaturation < 1.6)
+		{
+			GetFirstPersonCameraComponent()->PostProcessSettings.FilmSaturation += 0.005;
+			GetFirstPersonCameraComponent()->PostProcessSettings.VignetteIntensity += 0.0025;
+		}
+		else
+		{
+			GetFirstPersonCameraComponent()->PostProcessSettings.FilmSaturation = 1.6;
+			GetFirstPersonCameraComponent()->PostProcessSettings.VignetteIntensity = 0.3;
+			CameraIsChanging = false;
+		}
 	}
 }
-

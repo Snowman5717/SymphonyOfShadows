@@ -4,7 +4,7 @@
 
 #include "GameFramework/Character.h"
 #include "Equips/BaseEquips.h"
-//#include "PetersLocalPlayer.h"
+#include "TheSaveGame.h"
 #include "Interactables/LiftableBox.h"
 #include "PlayerCharacter.generated.h"
 
@@ -36,9 +36,9 @@ public:
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	
+
 	// Called every frame
-	virtual void Tick( float DeltaSeconds ) override;
+	virtual void Tick(float DeltaSeconds) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
@@ -70,6 +70,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 		USoundCue* WalkSound;
 
+	UPROPERTY()
+		UTheSaveGame* SaveGameInstance = Cast<UTheSaveGame>(UGameplayStatics::CreateSaveGameObject(UTheSaveGame::StaticClass()));
 
 protected:
 
@@ -81,6 +83,8 @@ protected:
 
 	UPROPERTY()
 		float FantasyCounter;
+
+	bool CameraIsChanging;
 
 
 	//Checks for what the player character is currently doing for sounds
@@ -117,18 +121,18 @@ public:
 	FORCEINLINE class USkeletalMeshComponent* GetMesh1P() const { return Mesh1P; }
 	/** Returns FirstPersonCameraComponent subobject **/
 	FORCEINLINE class UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
-	
+
 
 protected:
 
 	//A function that handles the activate button press
 	UFUNCTION()
-	void ActivateButton();
-	
+		void ActivateButton();
+
 	//Connection for Box and other liftable objects, curretly where the mop is being attached but
 	//Mop will be moved to the models hand when it comes in.
 	UPROPERTY(EditAnywhere)
-	USceneComponent* Hand;
+		USceneComponent* Hand;
 
 	//A list of the equips the player has available to them.
 	//and an equipped variable to hold the currently equipped tool.
@@ -139,16 +143,16 @@ protected:
 	//If 0, the player cannot equip anything, if 1, the player can
 	//access the first element in the Equips array.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	uint8 UnlockedEquips;
+		uint8 UnlockedEquips;
 
 	uint8 EquippedIndex;
 	ABaseEquips* Equipped;
-	
-	UFUNCTION()
-	virtual void OnActorOverlap(AActor* OtherActor);
 
 	UFUNCTION()
-	virtual void OnActorOverlapEnd(AActor* OtherActor);
+		virtual void OnActorOverlap(AActor* OtherActor);
+
+	UFUNCTION()
+		virtual void OnActorOverlapEnd(AActor* OtherActor);
 
 
 private:
