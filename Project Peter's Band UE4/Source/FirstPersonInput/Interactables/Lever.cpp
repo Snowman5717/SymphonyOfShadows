@@ -35,15 +35,18 @@ void ALever::Interact(AActor* OtherActor)
 	if (bIsActivated)
 	{
 		bIsActivated = false;
+		GEngine->AddOnScreenDebugMessage(1, 1, FColor::Red, "Lever Deactivated");
 	}
 	else
 	{
 		bIsActivated = true;
+		GEngine->AddOnScreenDebugMessage(1, 1, FColor::Red, "Lever Activated");
 	}
 
 	for (int i = 0; i < TargetToAffect.Num(); i++)
 	{
-		TargetToAffect[i]->Interact(OtherActor);
+		if (TargetToAffect[i] != nullptr)
+			TargetToAffect[i]->Interact(OtherActor);
 	}
 }
 

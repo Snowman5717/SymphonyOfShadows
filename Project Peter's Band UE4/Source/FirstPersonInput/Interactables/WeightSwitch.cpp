@@ -47,7 +47,8 @@ void AWeightSwitch::Tick( float DeltaTime )
 			{
 				for (int i = 0; i < TargetToAffect.Num(); i++)
 				{
-					TargetToAffect[i]->Interact(Interactor);
+					if (TargetToAffect[i] != nullptr)
+						TargetToAffect[i]->Interact(Interactor);
 				}
 				bIsActivated = true;
 			}
@@ -58,7 +59,8 @@ void AWeightSwitch::Tick( float DeltaTime )
 			{
 				for (int i = 0; i < TargetToAffect.Num(); i++)
 				{
-					TargetToAffect[i]->Interact(Interactor);
+					if (TargetToAffect[i] != nullptr)
+						TargetToAffect[i]->Interact(Interactor);
 				}
 				bIsActivated = false;
 			}
