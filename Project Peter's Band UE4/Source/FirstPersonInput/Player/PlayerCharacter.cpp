@@ -46,8 +46,8 @@ void APlayerCharacter::BeginPlay()
 	bCurrentlyLiftingBox = false;
 
 	//FANTASY CAMERA CODE//
-	FantasyCounter = SaveGameInstance->SavedFantasyCounter;
-	UpdateCamera(FantasyCounter);
+	//FantasyCounter = SaveGameInstance->SavedFantasyCounter;
+	//UpdateCamera(FantasyCounter);
 	//FANTASY CAMERA CODE//
 
 }
@@ -76,7 +76,7 @@ void APlayerCharacter::Tick(float DeltaTime)
 	}
 	if (CameraIsChanging == true)
 	{
-		UpdateCamera(FantasyCounter);
+		//UpdateCamera(FantasyCounter);
 	}
 }
 
@@ -288,9 +288,9 @@ void APlayerCharacter::OnActorOverlap(AActor* OtherActor)
 	{
 		if (OtherActor->GetName().Contains("Fantasy"))
 		{
-			FantasyCounter++;
-			SaveGameInstance->SavedFantasyCounter = FantasyCounter;
-			CameraIsChanging = true;
+			//FantasyCounter++;
+			//SaveGameInstance->SavedFantasyCounter = FantasyCounter;
+			//CameraIsChanging = true;
 		}
 	}
 }

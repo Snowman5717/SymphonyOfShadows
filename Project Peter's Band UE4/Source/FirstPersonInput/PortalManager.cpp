@@ -1,5 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+
 #include "FirstPersonInput.h"
 #include "Player/PlayerCharacter.h"
 #include "PortalManager.h"
@@ -62,19 +63,19 @@ void APortalManager::BeginPlay()
 		FActorSpawnParameters SpawnInfo;
 		SpawnInfo.Template = OriginMap.APortal;
 		APortalMap.APortal = GetWorld()->SpawnActor(OriginMap.APortal->GetClass(), new FVector(0, 0, 0), new FRotator(0, 0, 0), SpawnInfo);
-		APortalMap.APortal->SetActorLabel(*(const FString("PortalA MAP " + FString::FromInt(i + 1) + "A")));
+		//APortalMap.APortal->SetActorLabel(*(const FString("PortalA MAP " + FString::FromInt(i + 1) + "A")));
 
 		SpawnInfo.Template = OriginMap.BPortal;
 		APortalMap.BPortal = GetWorld()->SpawnActor(OriginMap.BPortal->GetClass(), new FVector(0, 0, 0), new FRotator(0, 0, 0), SpawnInfo);
-		APortalMap.BPortal->SetActorLabel(*(const FString("PortalB MAP " + FString::FromInt(i + 1) + "A")));
+		//APortalMap.BPortal->SetActorLabel(*(const FString("PortalB MAP " + FString::FromInt(i + 1) + "A")));
 
 		SpawnInfo.Template = OriginMap.APortal;
 		BPortalMap.APortal = GetWorld()->SpawnActor(OriginMap.APortal->GetClass(), new FVector(0, 0, 0), new FRotator(0, 0, 0), SpawnInfo);
-		BPortalMap.APortal->SetActorLabel(*(const FString("PortalA MAP " + FString::FromInt(i + 1) + "B")));
+		//BPortalMap.APortal->SetActorLabel(*(const FString("PortalA MAP " + FString::FromInt(i + 1) + "B")));
 
 		SpawnInfo.Template = OriginMap.BPortal;
 		BPortalMap.BPortal = GetWorld()->SpawnActor(OriginMap.BPortal->GetClass(), new FVector(0, 0, 0), new FRotator(0, 0, 0), SpawnInfo);
-		BPortalMap.BPortal->SetActorLabel(*(const FString("PortalB MAP " + FString::FromInt(i + 1) + "B")));
+		//BPortalMap.BPortal->SetActorLabel(*(const FString("PortalB MAP " + FString::FromInt(i + 1) + "B")));
 
 		//Moving the Portal Doors to align with the Origin Map, and saving the transform to be used for other map elements.
 		FVector MapAtoOrigin = FVector(OriginMap.BPortal->GetActorLocation().X - APortalMap.APortal->GetActorLocation().X,
@@ -100,12 +101,12 @@ void APortalManager::BeginPlay()
 		//Spawning ActiveMapZones.
 		SpawnInfo.Template = OriginMap.ActiveMapZone;
 		APortalMap.ActiveMapZone = GetWorld()->SpawnActor(OriginMap.ActiveMapZone->GetClass(), new FVector(0, 0, 0), new FRotator(0, 0, 0), SpawnInfo);
-		APortalMap.ActiveMapZone->SetActorLabel(*(const FString("ActiveMapZone MAP " + FString::FromInt(i + 1) + "A")));
+		//APortalMap.ActiveMapZone->SetActorLabel(*(const FString("ActiveMapZone MAP " + FString::FromInt(i + 1) + "A")));
 		BPortalMap.ActiveMapZone = GetWorld()->SpawnActor(OriginMap.ActiveMapZone->GetClass(), new FVector(0, 0, 0), new FRotator(0, 0, 0), SpawnInfo);
-		BPortalMap.ActiveMapZone->SetActorLabel(*(const FString("ActiveMapZone MAP " + FString::FromInt(i + 1) + "B")));
+		//BPortalMap.ActiveMapZone->SetActorLabel(*(const FString("ActiveMapZone MAP " + FString::FromInt(i + 1) + "B")));
 
-		APortalMap.ActiveMapZone->SetActorLocation(APortalMap.ActiveMapZone->GetActorLocation() + MapAtoOrigin);
-		BPortalMap.ActiveMapZone->SetActorLocation(BPortalMap.ActiveMapZone->GetActorLocation() + MapBtoOrigin);
+		//APortalMap.ActiveMapZone->SetActorLocation(APortalMap.ActiveMapZone->GetActorLocation() + MapAtoOrigin);
+		//BPortalMap.ActiveMapZone->SetActorLocation(BPortalMap.ActiveMapZone->GetActorLocation() + MapBtoOrigin);
 
 		//Duplicating all dynamic elements for each map, based on the origin map.
 		for (int j = 0; j < OriginMap.DynamicElements.Num(); j++)
@@ -114,11 +115,11 @@ void APortalManager::BeginPlay()
 
 			AActor* ADynPortalActor = GetWorld()->SpawnActor(OriginMap.DynamicElements[j]->GetClass(), new FVector(0, 0, 0), new FRotator(0, 0, 0), SpawnInfo);
 			APortalMap.DynamicElements.Add(ADynPortalActor);
-			ADynPortalActor->SetActorLocation(ADynPortalActor->GetActorLocation() + MapAtoOrigin);
+			//ADynPortalActor->SetActorLocation(ADynPortalActor->GetActorLocation() + MapAtoOrigin);
 
 			AActor* BDynPortalActor = GetWorld()->SpawnActor(OriginMap.DynamicElements[j]->GetClass(), new FVector(0, 0, 0), new FRotator(0, 0, 0), SpawnInfo);
 			BPortalMap.DynamicElements.Add(BDynPortalActor);
-			BDynPortalActor->SetActorLocation(BDynPortalActor->GetActorLocation() + MapAtoOrigin);
+			//BDynPortalActor->SetActorLocation(BDynPortalActor->GetActorLocation() + MapAtoOrigin);
 
 		}
 
@@ -320,4 +321,3 @@ void APortalManager::Tick( float DeltaTime )
 
 	
 }
-
