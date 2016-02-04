@@ -16,13 +16,22 @@ class FIRSTPERSONINPUT_API UTheSaveGame : public USaveGame
 	UTheSaveGame();
 
 public:
-	UPROPERTY(VisibleAnywhere, Category = Basic)
+	UPROPERTY(VisibleAnywhere, BlueprintEditable, Category = Basic)
 		float SavedFantasyCounter;
 
-	UPROPERTY(VisibleAnywhere, Category = Basic)
+	UPROPERTY(VisibleAnywhere, BlueprintEditable, Category = Basic)
+		FName LevelToLoad;
+
+	UPROPERTY(VisibleAnywhere, BlueprintEditable, Category = Basic)
+		FVector CheckPointAt;
+
+	UPROPERTY(VisibleAnywhere, BlueprintEditable, Category = Basic)
+		FName PlayerStart;
+
+	UPROPERTY(VisibleAnywhere, BlueprintEditable, Category = Basic)
 		FString SaveSlotName;
 
-	UPROPERTY(VisibleAnywhere, Category = Basic)
+	UPROPERTY(VisibleAnywhere, BlueprintEditable, Category = Basic)
 		uint32 UserIndex;
 
 };

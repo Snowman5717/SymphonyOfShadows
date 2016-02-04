@@ -52,6 +52,9 @@ public:
 	UPROPERTY(EditAnywhere)
 	FName DestinationKeyName;
 
+	UPROPERTY(EditAnywhere)
+	FName NextDestination;
+
 	UFUNCTION()
 		void NextWayPoint();
 

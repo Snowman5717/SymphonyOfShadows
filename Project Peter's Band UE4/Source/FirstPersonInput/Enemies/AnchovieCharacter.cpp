@@ -110,6 +110,14 @@ void AAnchovieCharacter::NextWayPoint()
 		if (Controller != nullptr)
 		{
 			Controller->GetBlackBoardComponent()->SetValue<UBlackboardKeyType_Vector>(DestinationKeyName, Waypoints[WaypointAt]->GetActorLocation());
+			if (Waypoints.Num() == WaypointAt + 1)
+			{
+				Controller->GetBlackBoardComponent()->SetValue<UBlackboardKeyType_Vector>(NextDestination, Waypoints[0]->GetActorLocation());
+			}
+			else
+			{
+				Controller->GetBlackBoardComponent()->SetValue<UBlackboardKeyType_Vector>(NextDestination, Waypoints[WaypointAt + 1]->GetActorLocation());
+			}
 		}
 	}
 }
