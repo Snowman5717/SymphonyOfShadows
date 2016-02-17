@@ -11,12 +11,12 @@ ALiftableBox::ALiftableBox()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	
-	Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("Collider"));
+	//Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("Collider"));
 
 	VisibleBox = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("VisibleBox"));
-	VisibleBox->AttachTo(Collider);
+	//VisibleBox->AttachTo(Collider);
 
-	RootComponent = Collider;
+	RootComponent = VisibleBox;
 }
 
 // Called when the game starts or when spawned
@@ -55,14 +55,11 @@ void ALiftableBox::Interact(AActor* Interactor)
 
 void ALiftableBox::Drop(AActor* Player)
 {
-	Collider->SetSimulatePhysics(true);
+	VisibleBox->WakeRigidBody();
 
-	VisibleBox->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	VisibleBox->SetCollisionResponseToChannel(ECollisionChannel::ECC_Pawn, ECollisionResponse::ECR_Block);
 
-	//THIS HAS TO BE THE PROBLEM
-	RootComponent->DetachFromParent();
-
-	RootComponent->SetWorldLocation(Cast<APlayerCharacter>(Player)->GetHand()->GetComponentLocation());
+	VisibleBox->SetRenderCustomDepth(false);
 }
 
 bool ALiftableBox::bIsAbove(AActor* Player)

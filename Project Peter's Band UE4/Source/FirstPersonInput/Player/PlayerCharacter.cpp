@@ -2,6 +2,8 @@
 
 #include "FirstPersonInput.h"
 #include "Interactables/Interactable.h"
+#include "Interactables/LiftableBox.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "PlayerCharacter.h"
 
 
@@ -35,6 +37,9 @@ APlayerCharacter::APlayerCharacter()
 
 	OnActorBeginOverlap.AddDynamic(this, &APlayerCharacter::OnActorOverlap);
 	OnActorEndOverlap.AddDynamic(this, &APlayerCharacter::OnActorOverlapEnd);
+
+	PhysicsHandler = CreateDefaultSubobject<UPhysicsHandleComponent>(TEXT("PhysicsHandler"));
+
 }
 
 
@@ -77,6 +82,30 @@ void APlayerCharacter::Tick(float DeltaTime)
 	if (CameraIsChanging == true)
 	{
 		//UpdateCamera(FantasyCounter);
+	}
+
+	if (PhysicsHandleActive)
+	{
+		if (PhysicsHandler)
+		{
+			FVector HandleLocation;
+
+			FVector ControllerForwardVector = UKismetMathLibrary::GetForwardVector(GetControlRotation());
+
+			HandleLocation = ControllerForwardVector * 200 + GetActorLocation();
+
+			HandleLocation.Z += 50;
+
+			PhysicsHandler->SetTargetLocationAndRotation(HandleLocation, GetControlRotation());
+		}
+	}
+	else if (PhysicsHandleActive == false)
+	{
+		PhysicsHandler->ReleaseComponent();
+		if (PickedUpBox)
+		{
+			PickedUpBox->Drop(this);
+		}
 	}
 }
 
@@ -165,6 +194,47 @@ void APlayerCharacter::LookUpAtRate(float Rate)
 //USE BUTTON CODE//
 void APlayerCharacter::ActivateButton()
 {
+
+	if (PhysicsHandleActive)
+	{
+		PhysicsHandleActive = false;
+	}
+	else if (!PhysicsHandleActive)
+	{
+		PhysicsHandleActive = true;
+	}
+
+	bool TraceSuccess;
+
+	FHitResult OutHit;
+
+	TraceSuccess = this->TraceFromSelf(OutHit, 200.f, ECollisionChannel::ECC_EngineTraceChannel1);
+
+	if (TraceSuccess)
+	{
+		GEngine->AddOnScreenDebugMessage(1, 1, FColor::Red, OutHit.GetActor()->GetName());
+
+		AInteractable* InteractableObject = NULL;
+
+		InteractableObject = Cast<AInteractable>(OutHit.GetActor());
+
+		if (Cast<ALiftableBox>(OutHit.GetActor()))
+		{
+			if (PhysicsHandleActive)
+			{
+				PhysicsHandler->GrabComponent(OutHit.GetComponent(), OutHit.BoneName, OutHit.Location, true);
+
+				PickedUpBox = Cast<ALiftableBox>(OutHit.GetActor());
+			}
+			return;
+		}
+		else if (InteractableObject)
+		{
+			InteractableObject->Interact(this);
+		}
+	}
+
+	/*
 	//If the player is lifting a box and the button is pressed then all we should do is drop the box.
 	if (bCurrentlyLiftingBox)
 	{
@@ -214,6 +284,8 @@ void APlayerCharacter::ActivateButton()
 			ClosestObject->Interact(this);
 		}
 	}
+
+	*/
 }
 //USE BUTTON CODE END//
 
@@ -353,4 +425,28 @@ void APlayerCharacter::UpdateCamera(float Counter)
 			CameraIsChanging = false;
 		}
 	}
+}
+
+bool APlayerCharacter::TraceFromSelf(FHitResult& OutResult, const float TraceDistance, ECollisionChannel const CollisionChannel)
+{
+	FVector PlayerLocation = this->GetActorLocation();
+
+	//GetPlayerViewPoint is used to give the origin and direction
+	//of the trace from the player
+
+	FVector const StartTrace = PlayerLocation;
+	FVector const TraceDirection = this->GetActorForwardVector();
+	FVector const EndTrace = StartTrace + TraceDirection*TraceDistance;
+
+	//Struct that defines parameters into collision function
+	FCollisionQueryParams TraceParams(FName(TEXT("TraceFromSelf")), true, this);
+
+	bool bHitReturned = false;
+	UWorld* const World = GetWorld();
+
+	if (World)
+	{
+		bHitReturned = World->LineTraceSingleByChannel(OutResult, StartTrace, EndTrace, CollisionChannel, TraceParams);
+	}
+	return bHitReturned;
 }

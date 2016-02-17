@@ -154,6 +154,13 @@ protected:
 	UFUNCTION()
 		virtual void OnActorOverlapEnd(AActor* OtherActor);
 
+	bool TraceFromSelf(FHitResult& OutResult, const float TraceDistance, ECollisionChannel const CollisionChannel);
+
+	UPROPERTY(VisibleDefaultsOnly, Category = PhysicHandle)
+	UPhysicsHandleComponent* PhysicsHandler;
+
+	bool PhysicsHandleActive;
+
 
 private:
 
