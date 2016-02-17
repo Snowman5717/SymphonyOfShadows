@@ -236,59 +236,6 @@ void APlayerCharacter::ActivateButton()
 			InteractableObject->Interact(this);
 		}
 	}
-
-	/*
-	//If the player is lifting a box and the button is pressed then all we should do is drop the box.
-	if (bCurrentlyLiftingBox)
-	{
-		bCurrentlyLiftingBox = false;
-
-		PickedUpBox->Drop(this);
-
-		return;
-	}
-
-	//Create an array to hold all of the overlapping actors on the player
-	TArray<AActor*> OverlappingActors;
-
-	GetOverlappingActors(OverlappingActors, AInteractable::StaticClass());
-
-	//Create an interactable pointer to hold the closest object at the end of it as well as a float to hold the closest distance
-	AInteractable *ClosestObject = nullptr;
-
-	//@note: FLT_MAX just sets the float to be the higest number possible for a float
-	float ClosestObjectDist = FLT_MAX;
-
-	//Loop that checks every object in the array to find what the closest object is
-	for (int i = 0; i < OverlappingActors.Num(); i++)
-	{
-		float ObjectDistance = FVector::Dist(this->GetActorLocation(), OverlappingActors[i]->GetActorLocation());
-
-		if (ObjectDistance < ClosestObjectDist)
-		{
-			ClosestObjectDist = ObjectDistance;
-			ClosestObject = Cast<AInteractable>(OverlappingActors[i]);
-		}
-	}
-
-	//As long as the closest actor is not null then it runs the interact function on that object
-	if (ClosestObject != nullptr)
-	{
-		//GEngine->AddOnScreenDebugMessage(1, 1, FColor::Red, ClosestObject->GetName());
-		if (ClosestObject->GetName().Contains("Door"))
-		{
-			if (ClosestObject->GetName().Contains("Interactable"))
-			{
-				ClosestObject->Interact(this);
-			}
-		}
-		else
-		{
-			ClosestObject->Interact(this);
-		}
-	}
-
-	*/
 }
 //USE BUTTON CODE END//
 
