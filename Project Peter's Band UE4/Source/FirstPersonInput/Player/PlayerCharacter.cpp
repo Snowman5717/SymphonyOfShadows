@@ -222,9 +222,12 @@ void APlayerCharacter::ActivateButton()
 		{
 			if (PhysicsHandleActive)
 			{
-				PhysicsHandler->GrabComponent(OutHit.GetComponent(), OutHit.BoneName, OutHit.Location, true);
-
 				PickedUpBox = Cast<ALiftableBox>(OutHit.GetActor());
+
+				if (PickedUpBox->bIsAbove(this))
+				{
+					PhysicsHandler->GrabComponent(OutHit.GetComponent(), OutHit.BoneName, OutHit.Location, true);
+				}
 			}
 			return;
 		}

@@ -25,6 +25,8 @@ public:
 	virtual void Interact(AActor* Interactor);
 
 	void Drop(AActor* Player);
+	
+	bool bIsAbove(AActor* Player);
 
 private:
 	
@@ -34,8 +36,4 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* VisibleBox;
-
-private:
-
-	bool bIsAbove(AActor* Player);
 };

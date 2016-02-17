@@ -10,11 +10,8 @@ ALiftableBox::ALiftableBox()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	
-	//Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("Collider"));
 
 	VisibleBox = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("VisibleBox"));
-	//VisibleBox->AttachTo(Collider);
 
 	RootComponent = VisibleBox;
 }
@@ -35,22 +32,6 @@ void ALiftableBox::Tick( float DeltaTime )
 
 void ALiftableBox::Interact(AActor* Interactor)
 {
-	GEngine->AddOnScreenDebugMessage(1, 1, FColor::Red, TEXT("Active"));
-
-	APlayerCharacter *Player = Cast<APlayerCharacter>(Interactor);
-
-	//LIFT BOX CODE
-	
-	if (bIsAbove(Interactor))
-	{
-		Collider->SetSimulatePhysics(false);
-
-		VisibleBox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-
-		this->AttachRootComponentTo(Cast<APlayerCharacter>(Interactor)->GetHand(), NAME_None, EAttachLocation::SnapToTarget);
-		
-		Player->SetObjectLifted(this);	
-	}
 }
 
 void ALiftableBox::Drop(AActor* Player)
