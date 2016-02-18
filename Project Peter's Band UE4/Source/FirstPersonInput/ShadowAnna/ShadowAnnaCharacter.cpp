@@ -3,6 +3,7 @@
 #include "FirstPersonInput.h"
 #include "ShadowAnnaController.h"
 #include "BehaviorTree/Blackboard/BlackboardKeyAllTypes.h"
+#include "Animation/AnnaAnimInstance.h"
 #include "ShadowAnnaCharacter.h"
 
 
@@ -28,7 +29,24 @@ void AShadowAnnaCharacter::BeginPlay()
 	{
 		Controller->GetBlackBoardComponent()->SetValue<UBlackboardKeyType_Vector>(DestinationKeyName, Destination->GetActorLocation());
 	}
+}
 
-	
+void AShadowAnnaCharacter::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	UAnnaAnimInstance* AnnaAnimInstance = Cast<UAnnaAnimInstance>(GetMesh()->GetAnimInstance());
+
+	if (AnnaAnimInstance)
+	{
+		if (this->GetVelocity().Size() > 0)
+		{
+			AnnaAnimInstance->bIsWalking = true;
+		}
+		else
+		{
+			AnnaAnimInstance->bIsWalking = false;
+		}
+	}
 }
 
