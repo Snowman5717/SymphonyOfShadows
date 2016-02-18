@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "FirstPersonInput.h"
+#include "InteractDoors.h"
 #include "WeightSwitch.h"
 
 
@@ -48,7 +49,16 @@ void AWeightSwitch::Tick( float DeltaTime )
 				for (int i = 0; i < TargetToAffect.Num(); i++)
 				{
 					if (TargetToAffect[i] != nullptr)
-						TargetToAffect[i]->Interact(Interactor);
+					{
+						if (TargetToAffect[i]->GetName().Contains("Door"))
+						{
+							Cast<AInteractDoors>(TargetToAffect[i])->SwitchInteract(Interactor);
+						}
+						else
+						{
+							TargetToAffect[i]->Interact(Interactor);
+						}
+					}
 				}
 				bIsActivated = true;
 			}
@@ -60,7 +70,16 @@ void AWeightSwitch::Tick( float DeltaTime )
 				for (int i = 0; i < TargetToAffect.Num(); i++)
 				{
 					if (TargetToAffect[i] != nullptr)
-						TargetToAffect[i]->Interact(Interactor);
+					{
+						if (TargetToAffect[i]->GetName().Contains("Door"))
+						{
+							Cast<AInteractDoors>(TargetToAffect[i])->SwitchInteract(Interactor);
+						}
+						else
+						{
+							TargetToAffect[i]->Interact(Interactor);
+						}
+					}
 				}
 				bIsActivated = false;
 			}
