@@ -24,6 +24,9 @@ public:
 	UFUNCTION()
 	virtual void Interact(AActor* Interactor);
 
+	UFUNCTION()
+	virtual void SwitchInteract(AActor* Interactor);
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	USoundCue* SoundEffect;
 

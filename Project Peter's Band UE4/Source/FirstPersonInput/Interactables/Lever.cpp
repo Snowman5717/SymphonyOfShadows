@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "FirstPersonInput.h"
+#include "InteractDoors.h"
 #include "Lever.h"
 
 
@@ -46,7 +47,16 @@ void ALever::Interact(AActor* OtherActor)
 	for (int i = 0; i < TargetToAffect.Num(); i++)
 	{
 		if (TargetToAffect[i] != nullptr)
-			TargetToAffect[i]->Interact(OtherActor);
+		{
+			if (TargetToAffect[i]->GetName().Contains("Door"))
+			{
+				Cast<AInteractDoors>(TargetToAffect[i])->SwitchInteract(OtherActor);
+			}
+			else
+			{
+				TargetToAffect[i]->Interact(OtherActor);
+			}
+		}
 	}
 }
 
