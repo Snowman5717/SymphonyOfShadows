@@ -40,8 +40,6 @@ void AWeightSwitch::Tick( float DeltaTime )
 
 	GetOverlappingActors(OverlappingActors, AActor::StaticClass());
 
-
-
 		if (OverlappingActors.Num() >= 1)
 		{
 			if (!bIsActivated)
@@ -85,7 +83,7 @@ void AWeightSwitch::Tick( float DeltaTime )
 			}
 		}
 
-	GEngine->AddOnScreenDebugMessage(3, 2.f, FColor::Magenta, FString::Printf(TEXT("Objects Inside: %i"), OverlappingActors.Num()));
+	//GEngine->AddOnScreenDebugMessage(3, 2.f, FColor::Magenta, FString::Printf(TEXT("Objects Inside: %i"), OverlappingActors.Num()));
 }
 
 void AWeightSwitch::OnActorOverlap(AActor* OtherActor)

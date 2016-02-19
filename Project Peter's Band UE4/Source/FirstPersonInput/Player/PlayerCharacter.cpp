@@ -3,6 +3,7 @@
 #include "FirstPersonInput.h"
 #include "Interactables/Interactable.h"
 #include "Interactables/LiftableBox.h"
+#include "Animations/PeterAnimInstance.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "PlayerCharacter.h"
 
@@ -63,6 +64,8 @@ void APlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	//GEngine->AddOnScreenDebugMessage(1, 1, FColor::Red, FString::Printf(TEXT("Z Velocity: %f"), GetVelocity().Z));
+
 	if (isWalkingForward || isWalkingRight)
 	{
 		if (CanJump())
@@ -78,6 +81,15 @@ void APlayerCharacter::Tick(float DeltaTime)
 	{
 		UGameplayStatics::PlaySoundAtLocation(GetWorld(), JumpSound, GetActorLocation());
 		isJumpingGroundCheck = false;
+
+		UPeterAnimInstance* PeterAnimInstance = Cast<UPeterAnimInstance>(GetMesh()->GetAnimInstance());
+
+		if (PeterAnimInstance && PeterAnimInstance->bLanded == false)
+		{
+			PeterAnimInstance->bStartLanding = true;
+		}
+
+		GEngine->AddOnScreenDebugMessage(10, 1, FColor::Blue, TEXT("BOOP"));
 	}
 	if (CameraIsChanging == true)
 	{
@@ -107,6 +119,13 @@ void APlayerCharacter::Tick(float DeltaTime)
 			PickedUpBox->Drop(this);
 		}
 	}
+
+	UPeterAnimInstance* PeterAnimInstance = Cast<UPeterAnimInstance>(GetMesh()->GetAnimInstance());
+
+	GEngine->AddOnScreenDebugMessage(2, 1, FColor::Red, FString::Printf(TEXT("bStartedJump: %i"), PeterAnimInstance->bStartedJump));
+	GEngine->AddOnScreenDebugMessage(3, 1, FColor::Red, FString::Printf(TEXT("bStartedLanding: %i"), PeterAnimInstance->bStartLanding));
+	GEngine->AddOnScreenDebugMessage(4, 1, FColor::Red, FString::Printf(TEXT("bLanded: %i"), PeterAnimInstance->bLanded));
+	GEngine->AddOnScreenDebugMessage(5, 1, FColor::Red, FString::Printf(TEXT("bIsFalling: %i"), PeterAnimInstance->bIsFalling));
 }
 
 // Called to bind functionality to input
@@ -115,7 +134,6 @@ void APlayerCharacter::SetupPlayerInputComponent(class UInputComponent* InputCom
 	Super::SetupPlayerInputComponent(InputComponent);
 
 	InputComponent->BindAction("UseButton", IE_Pressed, this, &APlayerCharacter::ActivateButton);
-	InputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	InputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 
 	//Depending on the key pressed, will change the player's equip.
@@ -140,6 +158,15 @@ void APlayerCharacter::StartJump()
 	{
 		isJumpingGruntCheck = true;
 		isJumpingGroundCheck = true;
+
+		UPeterAnimInstance* PeterAnimInstance = Cast<UPeterAnimInstance>(GetMesh()->GetAnimInstance());
+
+		if (PeterAnimInstance)
+		{
+			PeterAnimInstance->bStartedJump = true;
+			PeterAnimInstance->bLanded = false;
+		}
+
 		Jump();
 	}
 }
@@ -195,6 +222,13 @@ void APlayerCharacter::LookUpAtRate(float Rate)
 void APlayerCharacter::ActivateButton()
 {
 
+	UPeterAnimInstance* PeterAnimInstance = Cast<UPeterAnimInstance>(GetMesh()->GetAnimInstance());
+
+	if (PeterAnimInstance)
+	{
+		PeterAnimInstance->bIsInteracting = true;
+	}
+
 	if (PhysicsHandleActive)
 	{
 		PhysicsHandleActive = false;
@@ -212,7 +246,7 @@ void APlayerCharacter::ActivateButton()
 
 	if (TraceSuccess)
 	{
-		GEngine->AddOnScreenDebugMessage(1, 1, FColor::Red, OutHit.GetActor()->GetName());
+		//GEngine->AddOnScreenDebugMessage(1, 1, FColor::Red, OutHit.GetActor()->GetName());
 
 		AInteractable* InteractableObject = NULL;
 
@@ -295,7 +329,7 @@ void APlayerCharacter::SetObjectLifted(ALiftableBox* Box)
 void APlayerCharacter::SetLastChoice(bool ChoiceMade)
 {
 	LastChoiceMade = ChoiceMade;
-	GEngine->AddOnScreenDebugMessage(1, 1, FColor::Black, TEXT("DING"));
+	//GEngine->AddOnScreenDebugMessage(1, 1, FColor::Black, TEXT("DING"));
 }
 
 bool APlayerCharacter::GetLastChoice()
