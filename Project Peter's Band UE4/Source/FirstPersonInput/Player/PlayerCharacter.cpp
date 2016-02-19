@@ -84,9 +84,8 @@ void APlayerCharacter::Tick(float DeltaTime)
 
 		UPeterAnimInstance* PeterAnimInstance = Cast<UPeterAnimInstance>(GetMesh()->GetAnimInstance());
 
-		if (PeterAnimInstance && PeterAnimInstance->bLanded == false)
+		if (PeterAnimInstance)
 		{
-			PeterAnimInstance->bStartLanding = true;
 		}
 
 		GEngine->AddOnScreenDebugMessage(10, 1, FColor::Blue, TEXT("BOOP"));
@@ -164,7 +163,6 @@ void APlayerCharacter::StartJump()
 		if (PeterAnimInstance)
 		{
 			PeterAnimInstance->bStartedJump = true;
-			PeterAnimInstance->bLanded = false;
 		}
 
 		Jump();
