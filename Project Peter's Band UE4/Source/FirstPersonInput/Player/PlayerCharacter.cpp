@@ -3,6 +3,7 @@
 #include "FirstPersonInput.h"
 #include "Interactables/Interactable.h"
 #include "Interactables/LiftableBox.h"
+#include "Interactables/LightSwitch.h"
 #include "Animations/PeterAnimInstance.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "PlayerCharacter.h"
@@ -263,7 +264,7 @@ void APlayerCharacter::ActivateButton()
 			}
 			return;
 		}
-		else if (InteractableObject)
+		else if (InteractableObject && InteractableObject->GetClass()->IsChildOf(ALightSwitch::StaticClass()) == false)
 		{
 			InteractableObject->Interact(this);
 		}
