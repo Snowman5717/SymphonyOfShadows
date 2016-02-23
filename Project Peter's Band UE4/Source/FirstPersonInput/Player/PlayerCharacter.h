@@ -6,6 +6,7 @@
 #include "Equips/BaseEquips.h"
 #include "TheSaveGame.h"
 #include "Interactables/LiftableBox.h"
+#include "Interactables/TheatreSequence.h"
 #include "PlayerCharacter.generated.h"
 
 UCLASS()
@@ -13,8 +14,8 @@ class FIRSTPERSONINPUT_API APlayerCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
-	/** Pawn mesh: 1st person view (arms; seen only by self) */
-	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+		/** Pawn mesh: 1st person view (arms; seen only by self) */
+		UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
 	class USkeletalMeshComponent* Mesh1P;
 
 	/** First person camera */
@@ -73,6 +74,19 @@ public:
 	UPROPERTY()
 		UTheSaveGame* SaveGameInstance = Cast<UTheSaveGame>(UGameplayStatics::CreateSaveGameObject(UTheSaveGame::StaticClass()));
 
+	UPROPERTY()
+		AActor* WhereBeAnna;
+
+	UPROPERTY()
+		float DistanceToX;
+
+	UFUNCTION()
+		void FadeToWhite();
+
+	UPROPERTY()
+		ATheatreSequence *BeginTheShow;
+
+
 protected:
 
 	UPROPERTY()
@@ -83,6 +97,8 @@ protected:
 
 	UPROPERTY()
 		float FantasyCounter;
+
+	bool ShowTime;
 
 	bool CameraIsChanging;
 
@@ -157,7 +173,7 @@ protected:
 	bool TraceFromSelf(FHitResult& OutResult, const float TraceDistance, ECollisionChannel const CollisionChannel);
 
 	UPROPERTY(VisibleDefaultsOnly, Category = PhysicHandle)
-	UPhysicsHandleComponent* PhysicsHandler;
+		UPhysicsHandleComponent* PhysicsHandler;
 
 	bool PhysicsHandleActive;
 
