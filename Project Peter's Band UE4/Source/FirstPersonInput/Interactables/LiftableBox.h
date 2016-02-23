@@ -26,11 +26,10 @@ public:
 
 	void Drop(AActor* Player);
 	
-	bool bIsAbove(AActor* Player);
+	UPROPERTY(EditAnywhere)
+		bool CanBeLifted;
 
-private:
-	
-	bool isLifted;
+	bool bIsAbove(AActor* Player);
 
 protected:
 
