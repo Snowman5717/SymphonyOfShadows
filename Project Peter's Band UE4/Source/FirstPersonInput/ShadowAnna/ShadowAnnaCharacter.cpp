@@ -27,26 +27,15 @@ void AShadowAnnaCharacter::BeginPlay()
 	Controller = Cast<AShadowAnnaController>(this->GetController());
 	if (Controller != nullptr)
 	{
-		Controller->GetBlackBoardComponent()->SetValue<UBlackboardKeyType_Vector>(DestinationKeyName, Destination->GetActorLocation());
+		if (Destination)
+		{
+			Controller->GetBlackBoardComponent()->SetValue<UBlackboardKeyType_Vector>(DestinationKeyName, Destination->GetActorLocation());
+		}
 	}
 }
 
 void AShadowAnnaCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	UAnnaAnimInstance* AnnaAnimInstance = Cast<UAnnaAnimInstance>(GetMesh()->GetAnimInstance());
-
-	if (AnnaAnimInstance)
-	{
-		if (this->GetVelocity().Size() > 0)
-		{
-			AnnaAnimInstance->bIsWalking = true;
-		}
-		else
-		{
-			AnnaAnimInstance->bIsWalking = false;
-		}
-	}
 }
 
