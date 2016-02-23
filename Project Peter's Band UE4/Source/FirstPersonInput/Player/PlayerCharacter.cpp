@@ -95,6 +95,10 @@ void APlayerCharacter::Tick(float DeltaTime)
 	{
 		//UpdateCamera(FantasyCounter);
 	}
+	if (ShowTime == true)
+	{
+		FadeToWhite();
+	}
 
 	if (PhysicsHandleActive)
 	{
@@ -257,7 +261,7 @@ void APlayerCharacter::ActivateButton()
 			{
 				PickedUpBox = Cast<ALiftableBox>(OutHit.GetActor());
 
-				if (PickedUpBox->bIsAbove(this) && PickedUpBox->CanBeLifted == true)
+				if (PickedUpBox->bIsAbove(this))
 				{
 					PhysicsHandler->GrabComponent(OutHit.GetComponent(), OutHit.BoneName, OutHit.Location, true);
 				}
@@ -347,6 +351,17 @@ void APlayerCharacter::OnActorOverlap(AActor* OtherActor)
 			//SaveGameInstance->SavedFantasyCounter = FantasyCounter;
 			//CameraIsChanging = true;
 		}
+		if (OtherActor->GetName().Contains("Dance"))
+		{
+			BeginTheShow = Cast<ATheatreSequence>(OtherActor);
+
+			if (BeginTheShow != NULL)
+			{
+			WhereBeAnna = BeginTheShow->GetAnnasPos();
+				ShowTime = true;
+			}
+
+		}
 	}
 }
 
@@ -408,6 +423,37 @@ void APlayerCharacter::UpdateCamera(float Counter)
 			CameraIsChanging = false;
 		}
 	}
+}
+
+void APlayerCharacter::FadeToWhite()
+{
+
+	DistanceToX = GetDistanceTo(WhereBeAnna);
+
+
+	if (DistanceToX > 100)
+	{
+		GetFirstPersonCameraComponent()->PostProcessSettings.ColorOffset.X = 50 / DistanceToX;
+		GetFirstPersonCameraComponent()->PostProcessSettings.ColorOffset.Y = 50 / DistanceToX;
+		GetFirstPersonCameraComponent()->PostProcessSettings.ColorOffset.Z = 50 / DistanceToX;
+		GetFirstPersonCameraComponent()->PostProcessSettings.ColorContrast.X = 1 - 50 / DistanceToX;
+		GetFirstPersonCameraComponent()->PostProcessSettings.ColorContrast.Y = 1 - 50 / DistanceToX;
+		GetFirstPersonCameraComponent()->PostProcessSettings.ColorContrast.Z = 1 - 50 / DistanceToX;
+	}
+	else
+	{
+		ShowTime = false;
+		GetFirstPersonCameraComponent()->PostProcessSettings.ColorOffset.X = 0;
+		GetFirstPersonCameraComponent()->PostProcessSettings.ColorOffset.Y = 0;
+		GetFirstPersonCameraComponent()->PostProcessSettings.ColorOffset.Z = 0;
+		GetFirstPersonCameraComponent()->PostProcessSettings.ColorContrast.X = 1;
+		GetFirstPersonCameraComponent()->PostProcessSettings.ColorContrast.Y = 1;
+		GetFirstPersonCameraComponent()->PostProcessSettings.ColorContrast.Z = 1;
+
+	}
+
+
+
 }
 
 bool APlayerCharacter::TraceFromSelf(FHitResult& OutResult, const float TraceDistance, ECollisionChannel const CollisionChannel)
