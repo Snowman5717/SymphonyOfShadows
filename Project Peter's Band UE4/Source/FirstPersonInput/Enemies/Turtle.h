@@ -29,6 +29,9 @@ public:
 	UFUNCTION()
 		void PowerOn();
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float SpinSpeed = 0;
+
 protected:
 
 private:
