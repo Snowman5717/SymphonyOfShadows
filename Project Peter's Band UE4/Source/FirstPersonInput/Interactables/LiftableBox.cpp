@@ -20,8 +20,6 @@ ALiftableBox::ALiftableBox()
 void ALiftableBox::BeginPlay()
 {
 	Super::BeginPlay();
-
-	isLifted = false;
 }
 
 // Called every frame

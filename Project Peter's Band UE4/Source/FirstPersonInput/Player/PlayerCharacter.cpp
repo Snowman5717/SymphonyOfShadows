@@ -257,7 +257,7 @@ void APlayerCharacter::ActivateButton()
 			{
 				PickedUpBox = Cast<ALiftableBox>(OutHit.GetActor());
 
-				if (PickedUpBox->bIsAbove(this))
+				if (PickedUpBox->bIsAbove(this) && PickedUpBox->CanBeLifted == true)
 				{
 					PhysicsHandler->GrabComponent(OutHit.GetComponent(), OutHit.BoneName, OutHit.Location, true);
 				}
