@@ -12,11 +12,11 @@ ALever::ALever()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("Collider"));
-	RootComponent = Collider;
-
 	SkeletalMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeletalMesh"));
-	SkeletalMesh->AttachTo(RootComponent);
+	RootComponent = SkeletalMesh;
+
+	Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("Collider"));
+	Collider->AttachTo(SkeletalMesh);
 
 	Collider->SetBoxExtent(FVector(50, 50, 10));
 }
@@ -37,12 +37,18 @@ void ALever::Tick( float DeltaTime )
 
 void ALever::Interact(AActor* OtherActor)
 {
-	UInteractableAnimInstance* LeverAnimation = Cast<UInteractableAnimInstance>(SkeletalMesh->GetAnimInstance());
+	UInteractableAnimInstance* LeverAnimation = NULL;
+
+	if (SkeletalMesh)
+	{
+		LeverAnimation = Cast<UInteractableAnimInstance>(SkeletalMesh->GetAnimInstance());
+	}
 
 	if (bIsActivated)
 	{
 		bIsActivated = false;
 		GEngine->AddOnScreenDebugMessage(1, 1, FColor::Red, "Lever Deactivated");
+		
 		if (LeverAnimation)
 		{
 			LeverAnimation->bActivated = false;
