@@ -16,9 +16,6 @@ class FIRSTPERSONINPUT_API UAnnaAnimInstance : public UAnimInstance
 public:
 
 		virtual void NativeUpdateAnimation(float DeltaTime) override;
-	
-		UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		bool bIsWalking;
 
 		UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		float MoveSpeed;
