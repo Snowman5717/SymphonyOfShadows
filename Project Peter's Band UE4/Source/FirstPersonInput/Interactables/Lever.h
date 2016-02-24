@@ -31,6 +31,11 @@ public:
 	bool bIsActivated;
 
 	UFUNCTION()
-		bool GetIsActivated();
+	bool GetIsActivated();
+
+protected:
+
+	UPROPERTY(EditAnywhere)
+	USkeletalMeshComponent* SkeletalMesh;
 	
 };

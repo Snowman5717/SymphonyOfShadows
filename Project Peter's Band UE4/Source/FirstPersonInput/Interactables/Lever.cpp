@@ -2,6 +2,7 @@
 
 #include "FirstPersonInput.h"
 #include "InteractDoors.h"
+#include "InteractableAnimInstance.h"
 #include "Lever.h"
 
 
@@ -13,6 +14,9 @@ ALever::ALever()
 
 	Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("Collider"));
 	RootComponent = Collider;
+
+	SkeletalMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeletalMesh"));
+	SkeletalMesh->AttachTo(RootComponent);
 
 	Collider->SetBoxExtent(FVector(50, 50, 10));
 }
@@ -33,15 +37,26 @@ void ALever::Tick( float DeltaTime )
 
 void ALever::Interact(AActor* OtherActor)
 {
+	UInteractableAnimInstance* LeverAnimation = Cast<UInteractableAnimInstance>(SkeletalMesh->GetAnimInstance());
+
 	if (bIsActivated)
 	{
 		bIsActivated = false;
 		GEngine->AddOnScreenDebugMessage(1, 1, FColor::Red, "Lever Deactivated");
+		if (LeverAnimation)
+		{
+			LeverAnimation->bActivated = false;
+		}
+
 	}
 	else
 	{
 		bIsActivated = true;
 		GEngine->AddOnScreenDebugMessage(1, 1, FColor::Red, "Lever Activated");
+		if (LeverAnimation)
+		{
+			LeverAnimation->bActivated = true;
+		}
 	}
 
 	for (int i = 0; i < TargetToAffect.Num(); i++)
