@@ -24,6 +24,9 @@ public:
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	USoundCue* SoundEffect;
+
 protected:
 	UFUNCTION()
 	virtual void OnActorOverlap(AActor* OtherActor);

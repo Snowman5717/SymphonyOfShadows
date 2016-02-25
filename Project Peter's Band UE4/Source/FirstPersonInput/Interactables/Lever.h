@@ -33,6 +33,12 @@ public:
 	UFUNCTION()
 	bool GetIsActivated();
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	USoundCue* ActivationSound;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	USoundCue* DeactivationSound;
+
 protected:
 
 	UPROPERTY(EditAnywhere)

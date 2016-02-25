@@ -38,7 +38,7 @@ void ALever::Tick( float DeltaTime )
 void ALever::Interact(AActor* OtherActor)
 {
 	UInteractableAnimInstance* LeverAnimation = NULL;
-
+	
 	if (SkeletalMesh)
 	{
 		LeverAnimation = Cast<UInteractableAnimInstance>(SkeletalMesh->GetAnimInstance());
@@ -46,8 +46,8 @@ void ALever::Interact(AActor* OtherActor)
 
 	if (bIsActivated)
 	{
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(), DeactivationSound, GetActorLocation());
 		bIsActivated = false;
-		GEngine->AddOnScreenDebugMessage(1, 1, FColor::Red, "Lever Deactivated");
 		
 		if (LeverAnimation)
 		{
@@ -57,8 +57,9 @@ void ALever::Interact(AActor* OtherActor)
 	}
 	else
 	{
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(), ActivationSound, GetActorLocation());
 		bIsActivated = true;
-		GEngine->AddOnScreenDebugMessage(1, 1, FColor::Red, "Lever Activated");
+		
 		if (LeverAnimation)
 		{
 			LeverAnimation->bActivated = true;
