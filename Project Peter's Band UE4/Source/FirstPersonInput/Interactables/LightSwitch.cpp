@@ -46,7 +46,7 @@ void ALightSwitch::Tick( float DeltaTime )
 	{
 		for (int i = 0; i < turtles.Num(); i++)
 		{
-			if (turtles[i] != nullptr)
+			if (turtles[i] != nullptr && turtles[i] != NULL)
 			{
 				turtles[i]->PowerOff();
 			}
@@ -83,7 +83,7 @@ void ALightSwitch::CheckOverlapping()
 
 	for (int i = 0; i < OverlappingActors.Num(); i++)
 	{
-		if (OverlappingActors[i]->GetName().Contains("Turtle"))
+		if (Cast<ATurtle>(OverlappingActors[i]))
 		{
 			//turtle = Cast<ATurtle>(OverlappingActors[i]);
 			turtles.Add(Cast<ATurtle>(OverlappingActors[i]));

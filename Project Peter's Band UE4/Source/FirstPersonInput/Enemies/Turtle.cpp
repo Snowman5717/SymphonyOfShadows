@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "FirstPersonInput.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "Turtle.h"
 
 
@@ -24,7 +25,6 @@ void ATurtle::BeginPlay()
 	Super::BeginPlay();
 
 	bVisible = true;
-	
 }
 
 // Called every frame

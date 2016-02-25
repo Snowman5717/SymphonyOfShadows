@@ -32,10 +32,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float SpinSpeed = 0;
 
+	UPROPERTY(EditAnywhere, Blueprint Read Write)
+	AActor* MoveRelativeTo = NULL;
+
 protected:
 
 private:
-
 	bool bVisible;
 
 };
