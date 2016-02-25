@@ -20,6 +20,22 @@ public:
 		UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		float MoveSpeed;
 
+		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool bPlayFlairOne;
+
+		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool bPlayFlairTwo;
+
+protected:
+
+	UPROPERTY(BlueprintReadWrite)
+	uint8 IdleCount;
+
+	UFUNCTION(BlueprintCallable, Category = "RandomFunction")
+	uint8 RandomNumber();
+
+
+
 
 	
 	
