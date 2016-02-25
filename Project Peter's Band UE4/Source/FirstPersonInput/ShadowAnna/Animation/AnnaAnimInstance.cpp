@@ -16,3 +16,8 @@ void UAnnaAnimInstance::NativeUpdateAnimation(float DeltaTime)
 	}
 }
 
+uint8 UAnnaAnimInstance::RandomNumber()
+{
+	return FMath::RandRange(1, 2);
+}
+

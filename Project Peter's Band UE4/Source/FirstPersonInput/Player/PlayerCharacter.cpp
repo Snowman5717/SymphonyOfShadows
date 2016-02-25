@@ -125,11 +125,6 @@ void APlayerCharacter::Tick(float DeltaTime)
 	}
 
 	UPeterAnimInstance* PeterAnimInstance = Cast<UPeterAnimInstance>(GetMesh()->GetAnimInstance());
-
-	GEngine->AddOnScreenDebugMessage(2, 1, FColor::Red, FString::Printf(TEXT("bStartedJump: %i"), PeterAnimInstance->bStartedJump));
-	GEngine->AddOnScreenDebugMessage(3, 1, FColor::Red, FString::Printf(TEXT("bStartedLanding: %i"), PeterAnimInstance->bStartLanding));
-	GEngine->AddOnScreenDebugMessage(4, 1, FColor::Red, FString::Printf(TEXT("bLanded: %i"), PeterAnimInstance->bLanded));
-	GEngine->AddOnScreenDebugMessage(5, 1, FColor::Red, FString::Printf(TEXT("bIsFalling: %i"), PeterAnimInstance->bIsFalling));
 }
 
 // Called to bind functionality to input
