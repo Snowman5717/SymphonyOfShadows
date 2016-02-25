@@ -44,14 +44,7 @@ void AChoiceCheck::OnActorOverlap(AActor* OtherActor)
 
 		if (Player)
 		{
-			if (Player->GetLastChoice() == false)
-			{
-				Player->SetLastChoice(true);
-			}
-			else
-			{
-				Player->SetLastChoice(false);
-			}
+				Player->SetLastChoice(1);
 		}
 	}
 }
