@@ -59,6 +59,7 @@ void AWeightSwitch::Tick( float DeltaTime )
 					}
 				}
 				bIsActivated = true;
+				UGameplayStatics::PlaySoundAtLocation(GetWorld(), SoundEffect, GetActorLocation());
 			}
 		}
 		else if (OverlappingActors.Num() == 0)
@@ -80,6 +81,7 @@ void AWeightSwitch::Tick( float DeltaTime )
 					}
 				}
 				bIsActivated = false;
+				UGameplayStatics::PlaySoundAtLocation(GetWorld(), SoundEffect, GetActorLocation());
 			}
 		}
 
@@ -92,7 +94,6 @@ void AWeightSwitch::OnActorOverlap(AActor* OtherActor)
 	{
 		Interactor = OtherActor;
 		NumOfObjects++;
-		UGameplayStatics::PlaySoundAtLocation(GetWorld(), SoundEffect, GetActorLocation());
 	}
 }
 
@@ -100,8 +101,7 @@ void AWeightSwitch::OnActorOverlapEnd(AActor* OtherActor)
 {
 	if (OtherActor != GetOwner())
 	{
-		GEngine->AddOnScreenDebugMessage(1, 2, FColor::Green, TEXT("OUT"));
-		UGameplayStatics::PlaySoundAtLocation(GetWorld(), SoundEffect, GetActorLocation());
+		//GEngine->AddOnScreenDebugMessage(1, 2, FColor::Green, TEXT("OUT"));
 		NumOfObjects--;
 	}
 }
