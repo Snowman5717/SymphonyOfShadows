@@ -92,6 +92,7 @@ void AWeightSwitch::OnActorOverlap(AActor* OtherActor)
 	{
 		Interactor = OtherActor;
 		NumOfObjects++;
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(), SoundEffect, GetActorLocation());
 	}
 }
 
@@ -100,7 +101,7 @@ void AWeightSwitch::OnActorOverlapEnd(AActor* OtherActor)
 	if (OtherActor != GetOwner())
 	{
 		GEngine->AddOnScreenDebugMessage(1, 2, FColor::Green, TEXT("OUT"));
-
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(), SoundEffect, GetActorLocation());
 		NumOfObjects--;
 	}
 }

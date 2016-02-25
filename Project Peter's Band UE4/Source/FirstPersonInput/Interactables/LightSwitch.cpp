@@ -67,8 +67,15 @@ void ALightSwitch::Interact(AActor* Interactor)
 	SpotLight->ToggleVisibility();
 	LightCollider->ToggleVisibility();
 	
+	if (isOn)
+	{
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(), DeactivationSound, GetActorLocation());
+	}
+	else
+	{
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(), ActivationSound, GetActorLocation());
+	}
 
-	//SetActorEnableCollision(!isOn);
 	isOn = !isOn;
 
 }

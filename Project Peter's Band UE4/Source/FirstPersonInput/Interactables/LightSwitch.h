@@ -37,6 +37,12 @@ public:
 	UFUNCTION()
 	bool GetIsOn();
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+		USoundCue* ActivationSound;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+		USoundCue* DeactivationSound;
+
 protected:
 
 
