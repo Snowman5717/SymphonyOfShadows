@@ -34,7 +34,7 @@ void ALiftableBox::Interact(AActor* Interactor)
 
 void ALiftableBox::Drop(AActor* Player)
 {
-	VisibleBox->WakeRigidBody();
+	//VisibleBox->WakeRigidBody();
 
 	VisibleBox->SetCollisionResponseToChannel(ECollisionChannel::ECC_Pawn, ECollisionResponse::ECR_Block);
 
