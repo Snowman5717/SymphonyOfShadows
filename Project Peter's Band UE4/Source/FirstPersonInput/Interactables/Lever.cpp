@@ -37,8 +37,20 @@ void ALever::Tick( float DeltaTime )
 
 void ALever::Interact(AActor* OtherActor)
 {
+	//If this lever can only flip once and it has been flipped before...
+	if (FlipOnce && Flipped)
+	{
+		//...do not activate.
+		return;
+	}
+	else
+	{
+		//Otherwise set the "Flipped" marker to true.
+		Flipped = true;
+	}
+
 	UInteractableAnimInstance* LeverAnimation = NULL;
-	
+
 	if (SkeletalMesh)
 	{
 		LeverAnimation = Cast<UInteractableAnimInstance>(SkeletalMesh->GetAnimInstance());
