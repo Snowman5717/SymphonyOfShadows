@@ -41,4 +41,9 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	bool bIsOpen;
 
+	float timeDelay;
+
+	bool bOneTime;
+
+	FRotator rotationTarget;
 };

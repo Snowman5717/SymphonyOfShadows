@@ -36,6 +36,28 @@ void AInteractDoors::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
 
+	timeDelay += DeltaTime;
+
+	if (bIsOpen)
+	{
+			if (bOneTime)
+			{
+				rotationTarget = GetActorRotation();
+				rotationTarget.Yaw += 90;
+				bOneTime = false;
+			}
+			SetActorRotation(FMath::RInterpTo(GetActorRotation(), rotationTarget, DeltaTime, 10.f));
+	}
+	else
+	{
+			if (bOneTime)
+			{
+				rotationTarget = GetActorRotation();
+				rotationTarget.Yaw -= 90;
+				bOneTime = false;
+			}
+			SetActorRotation(FMath::RInterpTo(GetActorRotation(), rotationTarget, DeltaTime, 10.f));
+	}
 }
 
 void AInteractDoors::Interact(AActor* Interactor)
@@ -45,12 +67,12 @@ void AInteractDoors::Interact(AActor* Interactor)
 			FRotator CurrentRotation = AInteractDoors::GetActorRotation();
 			if (bIsOpen)
 			{
-				CurrentRotation.Yaw -= 90;
+				bOneTime = true;
 				bIsOpen = false;
 			}
 			else
 			{
-				CurrentRotation.Yaw += 90;
+				bOneTime = true;
 				bIsOpen = true;
 			}
 			UGameplayStatics::PlaySoundAtLocation(GetWorld(), SoundEffect, GetActorLocation());
@@ -64,12 +86,12 @@ void AInteractDoors::SwitchInteract(AActor* Interactor)
 		FRotator CurrentRotation = AInteractDoors::GetActorRotation();
 		if (bIsOpen)
 		{
-			CurrentRotation.Yaw -= 90;
+			bOneTime = true;
 			bIsOpen = false;
 		}
 		else
 		{
-			CurrentRotation.Yaw += 90;
+			bOneTime = true;
 			bIsOpen = true;
 		}
 		UGameplayStatics::PlaySoundAtLocation(GetWorld(), SoundEffect, GetActorLocation());
