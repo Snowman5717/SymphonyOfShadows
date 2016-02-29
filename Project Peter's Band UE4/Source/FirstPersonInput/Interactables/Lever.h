@@ -33,6 +33,10 @@ public:
 	UFUNCTION()
 	bool GetIsActivated();
 
+	//Make it so this level can only be flipped once.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool FlipOnce;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	USoundCue* ActivationSound;
 
@@ -44,4 +48,7 @@ protected:
 	UPROPERTY(EditAnywhere)
 	USkeletalMeshComponent* SkeletalMesh;
 	
+	//Check if this level has been flipped before.
+	bool Flipped = false;
+
 };

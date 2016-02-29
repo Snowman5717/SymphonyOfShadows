@@ -40,4 +40,6 @@ protected:
 private:
 	bool bVisible;
 
+	FVector RelativeLocation;
+	FRotator RelativeRotation;
 };
