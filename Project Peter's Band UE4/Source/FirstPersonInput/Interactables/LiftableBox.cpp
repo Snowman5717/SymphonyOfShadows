@@ -13,6 +13,8 @@ ALiftableBox::ALiftableBox()
 
 	VisibleBox = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("VisibleBox"));
 
+	VisibleBox->SetNotifyRigidBodyCollision(true);
+	
 	RootComponent = VisibleBox;
 }
 
