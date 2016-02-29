@@ -25,6 +25,12 @@ void ATurtle::BeginPlay()
 	Super::BeginPlay();
 
 	bVisible = true;
+
+	if (MoveRelativeTo != NULL)
+	{
+		RelativeLocation = GetActorLocation() - MoveRelativeTo->GetActorLocation();
+		RelativeRotation = GetActorRotation();
+	}
 }
 
 // Called every frame
@@ -37,6 +43,13 @@ void ATurtle::Tick( float DeltaTime )
 	if (StatMesh->IsSimulatingPhysics())
 	{
 		StatMesh->SetPhysicsAngularVelocity(FVector(0, 0, SpinSpeed), false);
+	}
+
+	if (MoveRelativeTo != NULL)
+	{
+		FVector RotatedPosition = MoveRelativeTo->GetActorRotation().RotateVector(RelativeLocation);
+		SetActorLocation(RotatedPosition + MoveRelativeTo->GetActorLocation());
+		SetActorRotation(MoveRelativeTo->GetActorRotation() + RelativeRotation);
 	}
 }
 
