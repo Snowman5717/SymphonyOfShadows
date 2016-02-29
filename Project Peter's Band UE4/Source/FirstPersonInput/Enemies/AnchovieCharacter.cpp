@@ -4,7 +4,7 @@
 #include "AnchovieCharacter.h"
 #include "AnchovieController.h"
 #include "BehaviorTree/Blackboard/BlackboardKeyAllTypes.h"
-
+//#include "Runtime/Engine/Classes/Components/SplineComponent.h"
 
 // Sets default values
 AAnchovieCharacter::AAnchovieCharacter()
@@ -38,6 +38,42 @@ AAnchovieCharacter::AAnchovieCharacter()
 
 }
 
+/*void AAnchovieCharacter::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	if (LightOn == true)
+	{
+		if (PatrolPath != NULL)
+		{
+			if (PatrolPath->GetSplineLength() >= DistanceOnSpline)
+			{
+				DistanceOnSpline = 0;
+			}
+			else
+			{
+				DistanceOnSpline += 10;
+			}
+		}
+	}
+	else
+	{
+		if (PatrolPath != NULL)
+		{
+			if (DistanceOnSpline <= 0)
+			{
+				DistanceOnSpline = PatrolPath->GetSplineLength();
+			}
+			else
+			{
+				DistanceOnSpline -= 10;
+			}
+		}
+	}
+
+	this->SetActorRotation(PatrolPath->GetQuaternionAtDistanceAlongSpline(DistanceOnSpline, ESplineCoordinateSpace::World));
+	this->SetActorLocation(PatrolPath->GetLocationAtDistanceAlongSpline(DistanceOnSpline, ESplineCoordinateSpace::World));
+}*/
 
 void AAnchovieCharacter::OnActorOverlaping(AActor* OtherActor)
 {

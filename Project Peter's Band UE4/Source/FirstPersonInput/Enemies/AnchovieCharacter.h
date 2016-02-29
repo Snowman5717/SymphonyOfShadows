@@ -7,6 +7,7 @@
 #include "Interactables/Interactable.h"
 #include "Interactables/LightSwitch.h"
 #include "Interactables/Lever.h"
+//#include "Runtime/Engine/Classes/Components/SplineComponent.h"
 #include "AnchovieCharacter.generated.h"
 
 
@@ -57,6 +58,21 @@ public:
 
 	UFUNCTION()
 		void NextWayPoint();
+
+	/*UPROPERTY(EditAnywhere)
+		AActor *PathActor;
+
+	UPROPERTY()
+		TArray <USplineComponent*> SplineArray;
+		
+	UPROPERTY()
+		TSubclassOf<USplineComponent> Plz;
+
+	UPROPERTY(EditAnywhere)
+		USplineComponent* PatrolPath;
+
+	UPROPERTY()
+		float DistanceOnSpline;*/
 
 protected:
 
