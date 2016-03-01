@@ -108,7 +108,7 @@ void APlayerCharacter::Tick(float DeltaTime)
 
 			FVector ControllerForwardVector = UKismetMathLibrary::GetForwardVector(GetControlRotation());
 
-			HandleLocation = ControllerForwardVector * 200 + GetActorLocation();
+			HandleLocation = ControllerForwardVector * 250 + GetActorLocation();
 
 			HandleLocation.Z += 50;
 
@@ -240,7 +240,8 @@ void APlayerCharacter::ActivateButton()
 
 	FHitResult OutHit;
 
-	TraceSuccess = this->TraceFromSelf(OutHit, 200.f, ECollisionChannel::ECC_EngineTraceChannel1);
+	//Uses Trace Channel: PlayerTrace 
+	TraceSuccess = this->TraceFromSelf(OutHit, 300.f, ECollisionChannel::ECC_GameTraceChannel6);
 
 	if (TraceSuccess)
 	{
@@ -256,7 +257,7 @@ void APlayerCharacter::ActivateButton()
 			{
 				PickedUpBox = Cast<ALiftableBox>(OutHit.GetActor());
 
-				if (PickedUpBox->bIsAbove(this))
+				if (PickedUpBox->bIsAbove(this) && PickedUpBox->CanBeLifted == true)
 				{
 					PhysicsHandler->GrabComponent(OutHit.GetComponent(), OutHit.BoneName, OutHit.Location, true);
 				}
