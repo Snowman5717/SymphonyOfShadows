@@ -23,6 +23,15 @@ public:
 	UPROPERTY(EditAnywhere)
 	UBoxComponent* Collider;
 
+	UPROPERTY(EditAnywhere)
+	FString Subtitles;
+
+	UPROPERTY(EditAnywhere)
+	UFont* HUDFont;
+
+	UPROPERTY(EditAnywhere)
+	FVector2D TextPosition;
+
 protected:
 
 	UFUNCTION()

@@ -336,7 +336,6 @@ bool APlayerCharacter::GetLastChoice()
 	return LastChoiceMade;
 }
 
-
 void APlayerCharacter::OnActorOverlap(AActor* OtherActor)
 {
 	if (OtherActor != GetOwner())
@@ -360,7 +359,6 @@ void APlayerCharacter::OnActorOverlap(AActor* OtherActor)
 		}
 	}
 }
-
 
 void APlayerCharacter::OnActorOverlapEnd(AActor* OtherActor)
 {
@@ -447,9 +445,6 @@ void APlayerCharacter::FadeToWhite()
 		GetFirstPersonCameraComponent()->PostProcessSettings.ColorContrast.Z = 1;
 
 	}
-
-
-
 }
 
 bool APlayerCharacter::TraceFromSelf(FHitResult& OutResult, const float TraceDistance, ECollisionChannel const CollisionChannel)
@@ -474,4 +469,16 @@ bool APlayerCharacter::TraceFromSelf(FHitResult& OutResult, const float TraceDis
 		bHitReturned = World->LineTraceSingleByChannel(OutResult, StartTrace, EndTrace, CollisionChannel, TraceParams);
 	}
 	return bHitReturned;
+}
+
+APlayerController* APlayerCharacter::GetPlayerController()
+{
+	APlayerController* PlayerController = Cast<APlayerController>(GetController());
+
+	if (PlayerController)
+	{
+		return PlayerController;
+	}
+
+	else return NULL;
 }
