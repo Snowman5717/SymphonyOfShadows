@@ -34,4 +34,16 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = Basic)
 		uint32 UserIndex;
 
+	UFUNCTION(BlueprintCallable, Category = "SaveStuff")
+		void ResetData();
+
+	UFUNCTION(BlueprintCallable, Category = "SaveStuff")
+		void SaveData(FName loadingLevel, FVector cp);
+
+	UFUNCTION(BlueprintCallable, Category = "SaveStuff")
+		FName ReturnLevelToLoad();
+
+	UFUNCTION(BlueprintCallable, Category = "SaveStuff")
+		FVector ReturnCheckPoint();
+			
 };

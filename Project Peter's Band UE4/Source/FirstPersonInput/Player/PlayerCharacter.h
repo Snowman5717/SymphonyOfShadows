@@ -71,8 +71,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 		USoundCue* WalkSound;
 
-	UPROPERTY()
-		UTheSaveGame* SaveGameInstance = Cast<UTheSaveGame>(UGameplayStatics::CreateSaveGameObject(UTheSaveGame::StaticClass()));
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SaveStuff")
+		UTheSaveGame* SaveGameInstance;
 
 	UPROPERTY()
 		AActor* WhereBeAnna;
