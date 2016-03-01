@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "FirstPersonInput.h"
+#include "Player/PlayerCharacter.h"
 #include "NarrativeCollider.h"
 
 
@@ -30,7 +31,22 @@ void ANarrativeCollider::OnActorOverlap(AActor* OtherActor)
 		if (NarrativeSound)
 		{
 			UGameplayStatics::PlaySoundAtLocation(GetWorld(), NarrativeSound, GetActorLocation());
-		}	
+		}
+
+		if (Subtitles.IsEmpty())
+		{
+			APlayerCharacter* PlayerCharacter = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+
+			if (PlayerCharacter)
+			{
+				AHUD* PlayerHUD = PlayerCharacter->GetPlayerController()->GetHUD();
+
+				if (PlayerHUD)
+				{
+					PlayerHUD->DrawText(Subtitles, TextPosition, HUDFont, FVector2D(1, 1), FColor::White);
+				}
+			}
+		}
 	}
 }
 

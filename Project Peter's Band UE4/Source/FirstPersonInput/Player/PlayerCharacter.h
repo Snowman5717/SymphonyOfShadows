@@ -22,18 +22,11 @@ class FIRSTPERSONINPUT_API APlayerCharacter : public ACharacter
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* FirstPersonCameraComponent;
 
-
 public:
+	//FUNCTIONS
+
 	// Sets default values for this character's properties
 	APlayerCharacter();
-
-	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
-		float BaseTurnRate;
-
-	/** Base look up/down rate, in deg/sec. Other scaling may affect final rate. */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
-		float BaseLookUpRate;
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -61,56 +54,22 @@ public:
 	bool GetLastChoice();
 	void SetLastChoice(bool ChoiceMade);
 
-	//Player specific sounds, set in the editor
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-		USoundCue* GruntSound;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-		USoundCue* JumpSound;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-		USoundCue* WalkSound;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SaveStuff")
-		UTheSaveGame* SaveGameInstance;
-
-	UPROPERTY()
-		AActor* WhereBeAnna;
-
-	UPROPERTY()
-		float DistanceToX;
+	UFUNCTION()
+	void FadeToWhite();
 
 	UFUNCTION()
-		void FadeToWhite();
+	APlayerController* GetPlayerController();
 
-	UPROPERTY()
-		ATheatreSequence *BeginTheShow;
-
+	/** Returns Mesh1P subobject **/
+	FORCEINLINE class USkeletalMeshComponent* GetMesh1P() const { return Mesh1P; }
+	/** Returns FirstPersonCameraComponent subobject **/
+	FORCEINLINE class UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 
 protected:
-
-	UPROPERTY()
-		ACameraActor* TheCameraToEffect;
+	//FUNCTIONS
 
 	UFUNCTION()
 		void UpdateCamera(float Counter);
-
-	UPROPERTY()
-		float FantasyCounter;
-
-	bool ShowTime;
-
-	bool CameraIsChanging;
-
-
-	//Checks for what the player character is currently doing for sounds
-	bool isWalkingForward;
-
-	bool isWalkingRight;
-
-	bool isJumpingGruntCheck;
-
-	bool isJumpingGroundCheck;
 
 	void StartJump();
 
@@ -132,54 +91,107 @@ protected:
 	*/
 	void LookUpAtRate(float Rate);
 
-public:
-	/** Returns Mesh1P subobject **/
-	FORCEINLINE class USkeletalMeshComponent* GetMesh1P() const { return Mesh1P; }
-	/** Returns FirstPersonCameraComponent subobject **/
-	FORCEINLINE class UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
-
-
-protected:
-
 	//A function that handles the activate button press
 	UFUNCTION()
-		void ActivateButton();
+	void ActivateButton();
+
+	UFUNCTION()
+	virtual void OnActorOverlap(AActor* OtherActor);
+
+	UFUNCTION()
+	virtual void OnActorOverlapEnd(AActor* OtherActor);
+
+	bool TraceFromSelf(FHitResult& OutResult, const float TraceDistance, ECollisionChannel const CollisionChannel);
+
+private: 
+	//FUNCTIONS
+
+public:
+	//VARIABLES
+
+	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
+	float BaseTurnRate;
+
+	/** Base look up/down rate, in deg/sec. Other scaling may affect final rate. */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
+	float BaseLookUpRate;
+
+	//Player specific sounds, set in the editor
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	USoundCue* GruntSound;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	USoundCue* JumpSound;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	USoundCue* WalkSound;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SaveStuff")
+	UTheSaveGame* SaveGameInstance;
+
+	UPROPERTY()
+	AActor* WhereBeAnna;
+
+	UPROPERTY()
+	float DistanceToX;
+
+	UPROPERTY()
+		ATheatreSequence *BeginTheShow;
+
+protected:
+	//VARIABLES
+
+	UPROPERTY()
+	ACameraActor* TheCameraToEffect;
+
+
+	UPROPERTY()
+	float FantasyCounter;
+
+	bool ShowTime;
+
+	bool CameraIsChanging;
+
+
+	//Checks for what the player character is currently doing for sounds
+	bool isWalkingForward;
+
+	bool isWalkingRight;
+
+	bool isJumpingGruntCheck;
+
+	bool isJumpingGroundCheck;
 
 	//Connection for Box and other liftable objects, curretly where the mop is being attached but
 	//Mop will be moved to the models hand when it comes in.
 	UPROPERTY(EditAnywhere)
-		USceneComponent* Hand;
+	USceneComponent* Hand;
 
 	//A list of the equips the player has available to them.
 	//and an equipped variable to hold the currently equipped tool.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		TArray< TSubclassOf<ABaseEquips> > Equips;
+	TArray< TSubclassOf<ABaseEquips> > Equips;
 
 	//A value that determines which equips the player has access to.
 	//If 0, the player cannot equip anything, if 1, the player can
 	//access the first element in the Equips array.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		uint8 UnlockedEquips;
+	uint8 UnlockedEquips;
 
 	uint8 EquippedIndex;
 	ABaseEquips* Equipped;
 
-	UFUNCTION()
-		virtual void OnActorOverlap(AActor* OtherActor);
-
-	UFUNCTION()
-		virtual void OnActorOverlapEnd(AActor* OtherActor);
-
-	bool TraceFromSelf(FHitResult& OutResult, const float TraceDistance, ECollisionChannel const CollisionChannel);
 
 	UPROPERTY(VisibleDefaultsOnly, Category = PhysicHandle)
-		UPhysicsHandleComponent* PhysicsHandler;
+	UPhysicsHandleComponent* PhysicsHandler;
 
 	bool PhysicsHandleActive;
 
 
 private:
-
+	//VARIABLES
+	
 	//Reference to the object that was picked up
 	ALiftableBox *PickedUpBox;
 
@@ -190,5 +202,4 @@ private:
 
 	//Needs to be moved to a ULocalPlayer class
 	int32 ChoiceScale;
-
 };
