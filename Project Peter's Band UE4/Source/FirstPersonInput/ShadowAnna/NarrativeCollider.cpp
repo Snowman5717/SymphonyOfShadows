@@ -26,24 +26,34 @@ void ANarrativeCollider::BeginPlay()
 
 void ANarrativeCollider::OnActorOverlap(AActor* OtherActor)
 {
-	if (OtherActor != GetOwner() && OtherActor->GetName().Contains("Anna"))
+	if (OtherActor != GetOwner())
 	{
+		GEngine->AddOnScreenDebugMessage(1, 1, FColor::Red, TEXT("HIT"));
 		if (NarrativeSound)
 		{
 			UGameplayStatics::PlaySoundAtLocation(GetWorld(), NarrativeSound, GetActorLocation());
 		}
 
-		if (Subtitles.IsEmpty())
+		if (!Subtitles.IsEmpty())
 		{
+
+			GEngine->AddOnScreenDebugMessage(1, 1, FColor::Red, TEXT("There are Words"));
+
 			APlayerCharacter* PlayerCharacter = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 
 			if (PlayerCharacter)
 			{
+
+				GEngine->AddOnScreenDebugMessage(1, 1, FColor::Red, TEXT("Found the Player"));
+
 				AHUD* PlayerHUD = PlayerCharacter->GetPlayerController()->GetHUD();
 
 				if (PlayerHUD)
 				{
-					PlayerHUD->DrawText(Subtitles, TextPosition, HUDFont, FVector2D(1, 1), FColor::White);
+
+					GEngine->AddOnScreenDebugMessage(1, 1, FColor::Red, TEXT("Found the HUD"));
+
+					//PlayerHUD->DrawText(Subtitles, TextPosition, HUDFont, FVector2D(1, 1), FColor::White);
 				}
 			}
 		}
