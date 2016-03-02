@@ -2,6 +2,7 @@
 
 #include "FirstPersonInput.h"
 #include "Player/PlayerCharacter.h"
+#include "Player/PlayerHUD.h"
 #include "NarrativeCollider.h"
 
 
@@ -46,14 +47,15 @@ void ANarrativeCollider::OnActorOverlap(AActor* OtherActor)
 
 				GEngine->AddOnScreenDebugMessage(1, 1, FColor::Red, TEXT("Found the Player"));
 
-				AHUD* PlayerHUD = PlayerCharacter->GetPlayerController()->GetHUD();
+				APlayerHUD* PlayerHUD = Cast<APlayerHUD>(PlayerCharacter->GetPlayerController()->GetHUD());
 
 				if (PlayerHUD)
 				{
 
 					GEngine->AddOnScreenDebugMessage(1, 1, FColor::Red, TEXT("Found the HUD"));
 
-					//PlayerHUD->DrawText(Subtitles, TextPosition, HUDFont, FVector2D(1, 1), FColor::White);
+					PlayerHUD->SetSubtitles(Subtitles);
+
 				}
 			}
 		}
