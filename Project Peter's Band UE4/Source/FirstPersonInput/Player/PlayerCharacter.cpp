@@ -482,3 +482,8 @@ APlayerController* APlayerCharacter::GetPlayerController()
 
 	else return NULL;
 }
+
+void APlayerCharacter::SavePlayerGame(FName section, FVector location)
+{
+	SaveGameInstance->SaveData(section, location);
+}
