@@ -38,7 +38,7 @@ void ALever::Tick( float DeltaTime )
 
 void ALever::Interact(AActor* OtherActor)
 {
-	if (activationTimer > 0.8)
+	if (activationTimer > 0.4)
 	{
 		//If this lever can only flip once and it has been flipped before...
 		if (FlipOnce && Flipped)

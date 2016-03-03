@@ -28,7 +28,9 @@ void AInteractDoors::BeginPlay()
 	Super::BeginPlay();
 
 	bIsOpen = false;
-	rotationTarget = GetActorRotation();
+	rotationClosed = GetActorRotation();
+	rotationOpen = GetActorRotation();
+	rotationOpen.Yaw += 90;
 }
 
 // Called every frame
@@ -36,32 +38,13 @@ void AInteractDoors::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
 
-	timeBeforeOpening += DeltaTime;
-
 	if (bIsOpen)
 	{
-
-			if (bOneTime)
-			{
-				rotationTarget = GetActorRotation();
-				rotationTarget.Yaw += 90;
-				bOneTime = false;
-			}
-
-			SetActorRotation(FMath::RInterpTo(GetActorRotation(), rotationTarget, DeltaTime, 10.f));
-
+			SetActorRotation(FMath::RInterpTo(GetActorRotation(), rotationOpen, DeltaTime, 10.f));
 	}
 	else
 	{
-
-			if (bOneTime)
-			{
-				rotationTarget = GetActorRotation();
-				rotationTarget.Yaw -= 90;
-				bOneTime = false;
-			}
-			SetActorRotation(FMath::RInterpTo(GetActorRotation(), rotationTarget, DeltaTime, 10.f));
-
+			SetActorRotation(FMath::RInterpTo(GetActorRotation(), rotationClosed, DeltaTime, 10.f));
 	}
 }
 
@@ -69,39 +52,27 @@ void AInteractDoors::Interact(AActor* Interactor)
 {
 		if (!bIsLocked)
 		{
-			if (timeBeforeOpening > 0.8)
-			{
 				if (bIsOpen)
 				{
-					bOneTime = true;
 					bIsOpen = false;
 				}
 				else
 				{
-					bOneTime = true;
 					bIsOpen = true;
 				}
 				UGameplayStatics::PlaySoundAtLocation(GetWorld(), SoundEffect, GetActorLocation());
-				timeBeforeOpening = 0;
-			}
 		}
 }
 
 void AInteractDoors::SwitchInteract(AActor* Interactor)
 {
-	if (timeBeforeOpening > 0.8)
-	{
 		if (bIsOpen)
 		{
-			bOneTime = true;
 			bIsOpen = false;
 		}
 		else
 		{
-			bOneTime = true;
 			bIsOpen = true;
 		}
 		UGameplayStatics::PlaySoundAtLocation(GetWorld(), SoundEffect, GetActorLocation());
-		timeBeforeOpening = 0;
-	}
 }
