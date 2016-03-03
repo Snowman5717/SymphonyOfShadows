@@ -89,6 +89,8 @@ void AInteractDoors::Interact(AActor* Interactor)
 
 void AInteractDoors::SwitchInteract(AActor* Interactor)
 {
+	if (timeBeforeOpening > 0.8)
+	{
 		if (bIsOpen)
 		{
 			bOneTime = true;
@@ -100,5 +102,6 @@ void AInteractDoors::SwitchInteract(AActor* Interactor)
 			bIsOpen = true;
 		}
 		UGameplayStatics::PlaySoundAtLocation(GetWorld(), SoundEffect, GetActorLocation());
-
+		timeBeforeOpening = 0;
+	}
 }

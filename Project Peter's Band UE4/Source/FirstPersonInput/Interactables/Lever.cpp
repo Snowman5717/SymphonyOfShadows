@@ -33,64 +33,69 @@ void ALever::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
 
+	activationTimer += DeltaTime;
 }
 
 void ALever::Interact(AActor* OtherActor)
 {
-	//If this lever can only flip once and it has been flipped before...
-	if (FlipOnce && Flipped)
+	if (activationTimer > 0.8)
 	{
-		//...do not activate.
-		return;
-	}
-	else
-	{
-		//Otherwise set the "Flipped" marker to true.
-		Flipped = true;
-	}
-
-	UInteractableAnimInstance* LeverAnimation = NULL;
-
-	if (SkeletalMesh)
-	{
-		LeverAnimation = Cast<UInteractableAnimInstance>(SkeletalMesh->GetAnimInstance());
-	}
-
-	if (bIsActivated)
-	{
-		UGameplayStatics::PlaySoundAtLocation(GetWorld(), DeactivationSound, GetActorLocation());
-		bIsActivated = false;
-		
-		if (LeverAnimation)
+		//If this lever can only flip once and it has been flipped before...
+		if (FlipOnce && Flipped)
 		{
-			LeverAnimation->bActivated = false;
+			//...do not activate.
+			return;
+		}
+		else
+		{
+			//Otherwise set the "Flipped" marker to true.
+			Flipped = true;
 		}
 
-	}
-	else
-	{
-		UGameplayStatics::PlaySoundAtLocation(GetWorld(), ActivationSound, GetActorLocation());
-		bIsActivated = true;
-		
-		if (LeverAnimation)
-		{
-			LeverAnimation->bActivated = true;
-		}
-	}
+		UInteractableAnimInstance* LeverAnimation = NULL;
 
-	for (int i = 0; i < TargetToAffect.Num(); i++)
-	{
-		if (TargetToAffect[i] != nullptr)
+		if (SkeletalMesh)
 		{
-			if (TargetToAffect[i]->GetName().Contains("Door"))
+			LeverAnimation = Cast<UInteractableAnimInstance>(SkeletalMesh->GetAnimInstance());
+		}
+
+		if (bIsActivated)
+		{
+			UGameplayStatics::PlaySoundAtLocation(GetWorld(), DeactivationSound, GetActorLocation());
+			bIsActivated = false;
+
+			if (LeverAnimation)
 			{
-				Cast<AInteractDoors>(TargetToAffect[i])->SwitchInteract(OtherActor);
+				LeverAnimation->bActivated = false;
 			}
-			else
+
+		}
+		else
+		{
+			UGameplayStatics::PlaySoundAtLocation(GetWorld(), ActivationSound, GetActorLocation());
+			bIsActivated = true;
+
+			if (LeverAnimation)
 			{
-				TargetToAffect[i]->Interact(OtherActor);
+				LeverAnimation->bActivated = true;
 			}
 		}
+
+		for (int i = 0; i < TargetToAffect.Num(); i++)
+		{
+			if (TargetToAffect[i] != nullptr)
+			{
+				if (TargetToAffect[i]->GetName().Contains("Door"))
+				{
+					Cast<AInteractDoors>(TargetToAffect[i])->SwitchInteract(OtherActor);
+				}
+				else
+				{
+					TargetToAffect[i]->Interact(OtherActor);
+				}
+			}
+		}
+		activationTimer = 0;
 	}
 }
 

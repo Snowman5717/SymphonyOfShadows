@@ -43,6 +43,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	USoundCue* DeactivationSound;
 
+private:
+	float activationTimer;
+
 protected:
 
 	UPROPERTY(EditAnywhere)
