@@ -1,5 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
+/*
 #pragma once
 
 #include "AIController.h"
@@ -10,7 +10,7 @@
 
 /**
  * 
- */
+ *
 UCLASS()
 class FIRSTPERSONINPUT_API AAnchovieController : public AAIController
 {
@@ -34,3 +34,4 @@ protected:
 
 };
 
+*/

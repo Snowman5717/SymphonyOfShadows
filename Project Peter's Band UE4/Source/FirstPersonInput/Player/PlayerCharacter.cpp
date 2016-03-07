@@ -423,9 +423,17 @@ void APlayerCharacter::FadeToWhite()
 {
 
 	DistanceToX = GetDistanceTo(WhereBeAnna);
+	if (DistanceToX > 500)
+	{
+		GetFirstPersonCameraComponent()->PostProcessSettings.ColorOffset.X = 25 / DistanceToX;
+		GetFirstPersonCameraComponent()->PostProcessSettings.ColorOffset.Y = 25 / DistanceToX;
+		GetFirstPersonCameraComponent()->PostProcessSettings.ColorOffset.Z = 25 / DistanceToX;
+		GetFirstPersonCameraComponent()->PostProcessSettings.ColorContrast.X = 1 - 25 / DistanceToX;
+		GetFirstPersonCameraComponent()->PostProcessSettings.ColorContrast.Y = 1 - 25 / DistanceToX;
+		GetFirstPersonCameraComponent()->PostProcessSettings.ColorContrast.Z = 1 - 25 / DistanceToX;
+	}
 
-
-	if (DistanceToX > 100)
+	else if (DistanceToX > 100)
 	{
 		GetFirstPersonCameraComponent()->PostProcessSettings.ColorOffset.X = 50 / DistanceToX;
 		GetFirstPersonCameraComponent()->PostProcessSettings.ColorOffset.Y = 50 / DistanceToX;
@@ -437,13 +445,6 @@ void APlayerCharacter::FadeToWhite()
 	else
 	{
 		ShowTime = false;
-		GetFirstPersonCameraComponent()->PostProcessSettings.ColorOffset.X = 0;
-		GetFirstPersonCameraComponent()->PostProcessSettings.ColorOffset.Y = 0;
-		GetFirstPersonCameraComponent()->PostProcessSettings.ColorOffset.Z = 0;
-		GetFirstPersonCameraComponent()->PostProcessSettings.ColorContrast.X = 1;
-		GetFirstPersonCameraComponent()->PostProcessSettings.ColorContrast.Y = 1;
-		GetFirstPersonCameraComponent()->PostProcessSettings.ColorContrast.Z = 1;
-
 	}
 }
 

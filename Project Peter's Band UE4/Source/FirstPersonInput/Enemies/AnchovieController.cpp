@@ -1,5 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
+/*
 #include "FirstPersonInput.h"
 #include "AnchovieController.h"
 #include "BehaviorTree/Blackboard/BlackboardKeyAllTypes.h"
@@ -34,4 +34,4 @@ void AAnchovieController::RedirectToCharacter(AActor* OtherActor)
 {
 	AAnchovieCharacter* Character = Cast<AAnchovieCharacter>(OtherActor);
 	Character->NextWayPoint();
-}
+}*/
