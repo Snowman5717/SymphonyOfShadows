@@ -52,8 +52,10 @@ void AAnchovieCharacter::Tick(float DeltaTime)
 			}
 			else
 			{
-				DistanceOnSpline += 4;
+				DistanceOnSpline += 2.5;
 			}
+			SetActorRotation(PatrolPath->GetRotationAtDistanceAlongSpline(DistanceOnSpline, ESplineCoordinateSpace::World));
+			SetActorLocation(PatrolPath->GetLocationAtDistanceAlongSpline(DistanceOnSpline, ESplineCoordinateSpace::World));
 		}
 		else
 		{
@@ -63,13 +65,16 @@ void AAnchovieCharacter::Tick(float DeltaTime)
 			}
 			else
 			{
-				DistanceOnSpline -= 4;
+				DistanceOnSpline -= 2.5;
 			}
+			rotationTarget = PatrolPath->GetRotationAtDistanceAlongSpline(DistanceOnSpline, ESplineCoordinateSpace::World);
+			rotationTarget.Yaw += 180;
+			SetActorRotation(rotationTarget);
+			SetActorLocation(PatrolPath->GetLocationAtDistanceAlongSpline(DistanceOnSpline, ESplineCoordinateSpace::World));
 		}
 	}
 
-	SetActorRotation(PatrolPath->GetQuaternionAtDistanceAlongSpline(DistanceOnSpline, ESplineCoordinateSpace::World));
-	SetActorLocation(PatrolPath->GetLocationAtDistanceAlongSpline(DistanceOnSpline, ESplineCoordinateSpace::World));
+
 }
 
 void AAnchovieCharacter::OnActorOverlaping(AActor* OtherActor)

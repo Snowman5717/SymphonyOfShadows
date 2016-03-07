@@ -67,6 +67,8 @@ public:
 	UPROPERTY()
 		float DistanceOnSpline;
 
+	FRotator rotationTarget;
+
 protected:
 
 
