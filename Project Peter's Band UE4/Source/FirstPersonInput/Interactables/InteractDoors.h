@@ -30,6 +30,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	USoundCue* SoundEffect;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	USkeletalMeshComponent* SkeletalMesh;
+
 	UPROPERTY(EditAnywhere)
 	UBoxComponent* DoorHinge;
 
