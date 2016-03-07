@@ -60,5 +60,7 @@ void ANarrativeCollider::OnActorOverlap(AActor* OtherActor)
 			}
 		}
 	}
+
+	Destroy();
 }
 
