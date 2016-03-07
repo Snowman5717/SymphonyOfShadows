@@ -64,4 +64,7 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	FName MapToTeleportTo;
+
+	UPROPERTY(EditAnywhere)
+	uint8 ExtraTimeBuffer;
 };

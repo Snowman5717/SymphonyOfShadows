@@ -56,7 +56,7 @@ void AMemorySegmentLights::StartTimer()
 	//Gets the length of the audio cue that is about to start playing and sets the timer to that value. If the count is 0 (Meaning this is the first light) it will only show for 2 seconds.
 	if (AudioController->GetCount() > 0)
 	{
-		VoiceOverTimer = AudioController->GetCurrentSoundLength() + 2.f;
+		VoiceOverTimer = AudioController->GetCurrentSoundLength() + ExtraTimeBuffer;
 	}
 	else
 	{
