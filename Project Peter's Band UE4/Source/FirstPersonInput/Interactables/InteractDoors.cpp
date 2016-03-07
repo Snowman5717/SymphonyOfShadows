@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "FirstPersonInput.h"
-#include "DoorAnimInstance.h"
+#include "InteractableAnimInstance.h"
 #include "InteractDoors.h"
 
 
@@ -66,10 +66,11 @@ void AInteractDoors::Interact(AActor* Interactor)
 				}
 				UGameplayStatics::PlaySoundAtLocation(GetWorld(), SoundEffect, GetActorLocation());
 
-				UDoorAnimInstance* DoorAnim = Cast<UDoorAnimInstance>(SkeletalMesh->GetAnimInstance());
+				UInteractableAnimInstance* DoorAnim = Cast<UInteractableAnimInstance>(SkeletalMesh->GetAnimInstance());
+				
 				if (DoorAnim)
 				{
-					DoorAnim->bDoorActivated = true;
+					DoorAnim->bActivated = true;
 				}
 		}
 }
