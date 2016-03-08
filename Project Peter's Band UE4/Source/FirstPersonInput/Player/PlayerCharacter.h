@@ -23,6 +23,11 @@ class FIRSTPERSONINPUT_API APlayerCharacter : public ACharacter
 	class UCameraComponent* FirstPersonCameraComponent;
 
 public:
+
+	FName sectionName;
+
+	UFUNCTION()
+	FName GetSection();
 	//FUNCTIONS
 
 	// Sets default values for this character's properties
@@ -60,7 +65,7 @@ public:
 	UFUNCTION()
 	APlayerController* GetPlayerController();
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable, Category = "SaveStuff")
 	void SavePlayerGame(FName section, FVector location);
 
 	/** Returns Mesh1P subobject **/

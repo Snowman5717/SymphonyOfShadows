@@ -56,7 +56,6 @@ void APlayerCharacter::BeginPlay()
 	//FantasyCounter = SaveGameInstance->SavedFantasyCounter;
 	//UpdateCamera(FantasyCounter);
 	//FANTASY CAMERA CODE//
-
 }
 
 
@@ -487,4 +486,10 @@ APlayerController* APlayerCharacter::GetPlayerController()
 void APlayerCharacter::SavePlayerGame(FName section, FVector location)
 {
 	SaveGameInstance->SaveData(section, location);
+	sectionName = section;
+}
+
+FName APlayerCharacter::GetSection()
+{
+	return sectionName;
 }
