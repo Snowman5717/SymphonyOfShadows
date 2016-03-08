@@ -56,7 +56,7 @@ void AMemorySegmentLights::StartTimer()
 	//Gets the length of the audio cue that is about to start playing and sets the timer to that value. If the count is 0 (Meaning this is the first light) it will only show for 2 seconds.
 	if (AudioController->GetCount() > 0)
 	{
-		VoiceOverTimer = AudioController->GetCurrentSoundLength();
+		VoiceOverTimer = AudioController->GetCurrentSoundLength() + ExtraTimeBuffer;
 	}
 	else
 	{
@@ -71,6 +71,13 @@ void AMemorySegmentLights::StartTimer()
 	UGameplayStatics::PlaySoundAtLocation(GetWorld(), StartSound, GetActorLocation());
 	UGameplayStatics::PlaySoundAtLocation(GetWorld(), AudioController->GetSoundToPlay(), GetActorLocation());
 
+	//If there are no more audio files to play then teleport the player out of the map
+	if (AudioController->GetCount() > AudioController->GetArraySize())
+	{
+		//Teleport the player out of the memory segment map
+		UGameplayStatics::OpenLevel(GetWorld(), MapToTeleportTo);
+	}
+
 }
 
 void AMemorySegmentLights::AudioFinished()
@@ -79,16 +86,9 @@ void AMemorySegmentLights::AudioFinished()
 	if (MemorySegmentLight != NULL)
 	{
 		UWorld* const World = GetWorld();
-		FVector moveLocation = World->GetFirstPlayerController()->GetActorForwardVector() * 2000.f;
+		FVector moveLocation = UGameplayStatics::GetPlayerCharacter(World, 0)->GetActorForwardVector() * 2000;
 
 		SetActorLocation(FVector(moveLocation.X, moveLocation.Y, 740));
-	}
-
-	//If there are no more audio files to play then teleport the player out of the map
-	if (AudioController->GetCount() > AudioController->GetArraySize())
-	{
-		//Teleport the player out of the memory segment map
-		UGameplayStatics::OpenLevel(GetWorld(), "SectionTwo");
 	}
 
 	//Tell the audio controller that we are ready for another sound

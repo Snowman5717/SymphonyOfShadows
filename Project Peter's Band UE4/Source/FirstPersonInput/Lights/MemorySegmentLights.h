@@ -61,4 +61,10 @@ public:
 	//A public reference to the audio controller object
 	UPROPERTY(EditAnywhere)
 	AAudioController* AudioController;
+
+	UPROPERTY(EditAnywhere)
+	FName MapToTeleportTo;
+
+	UPROPERTY(EditAnywhere)
+	uint8 ExtraTimeBuffer;
 };

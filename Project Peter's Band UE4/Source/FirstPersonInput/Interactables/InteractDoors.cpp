@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "FirstPersonInput.h"
+#include "InteractableAnimInstance.h"
 #include "InteractDoors.h"
 
 
@@ -15,6 +16,9 @@ AInteractDoors::AInteractDoors()
 	DoorHinge = CreateDefaultSubobject<UBoxComponent>(TEXT("Door Hinge"));
 	DoorHinge->SetBoxExtent(FVector(5, 10, 5));
 	DoorHinge->AddLocalOffset(FVector(-50, 0, 0));
+
+	SkeletalMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeletalMesh"));
+	SkeletalMesh->AttachTo(DoorHinge);
 
 	//Collider->AttachTo(DoorHinge);
 
@@ -61,6 +65,13 @@ void AInteractDoors::Interact(AActor* Interactor)
 					bIsOpen = true;
 				}
 				UGameplayStatics::PlaySoundAtLocation(GetWorld(), SoundEffect, GetActorLocation());
+
+				UInteractableAnimInstance* DoorAnim = Cast<UInteractableAnimInstance>(SkeletalMesh->GetAnimInstance());
+				
+				if (DoorAnim)
+				{
+					DoorAnim->bActivated = true;
+				}
 		}
 }
 

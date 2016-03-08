@@ -17,5 +17,5 @@ class FIRSTPERSONINPUT_API UDoorAnimInstance : public UAnimInstance
 public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		bool bDoorOpen;
+		bool bDoorActivated;
 };

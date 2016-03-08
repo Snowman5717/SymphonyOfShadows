@@ -7,7 +7,7 @@
 #include "Interactables/Interactable.h"
 #include "Interactables/LightSwitch.h"
 #include "Interactables/Lever.h"
-//#include "Runtime/Engine/Classes/Components/SplineComponent.h"
+#include "Runtime/Engine/Classes/Components/SplineComponent.h"
 #include "AnchovieCharacter.generated.h"
 
 
@@ -19,6 +19,8 @@ class FIRSTPERSONINPUT_API AAnchovieCharacter : public ACharacter
 public:
 	// Sets default values for this character's properties
 	AAnchovieCharacter();
+
+	void Tick(float DeltaSeconds) override;
 
 	UPROPERTY(EditAnywhere)
 		UBehaviorTree* BehaviorTree;
@@ -41,12 +43,12 @@ public:
 	UPROPERTY(EditAnywhere)
 		USkeletalMeshComponent* skeleMesh6;
 
-	UPROPERTY(EditAnywhere)
-		TArray<AActor*> Waypoints;
+	/*UPROPERTY(EditAnywhere)
+		TArray<AActor*> Waypoints;*/
 
 	UPROPERTY(EditAnywhere)
 	bool LightOn;
-
+	/*
 	UPROPERTY(EditAnywhere)
 	float WaypointAt;
 
@@ -57,22 +59,15 @@ public:
 	FName NextDestination;
 
 	UFUNCTION()
-		void NextWayPoint();
+		void NextWayPoint();*/
 
-	/*UPROPERTY(EditAnywhere)
-		AActor *PathActor;
-
-	UPROPERTY()
-		TArray <USplineComponent*> SplineArray;
-		
-	UPROPERTY()
-		TSubclassOf<USplineComponent> Plz;
-
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AIPathing")
 		USplineComponent* PatrolPath;
 
 	UPROPERTY()
-		float DistanceOnSpline;*/
+		float DistanceOnSpline;
+
+	FRotator rotationTarget;
 
 protected:
 

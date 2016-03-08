@@ -2,9 +2,9 @@
 
 #include "FirstPersonInput.h"
 #include "AnchovieCharacter.h"
-#include "AnchovieController.h"
+//#include "AnchovieController.h"
 #include "BehaviorTree/Blackboard/BlackboardKeyAllTypes.h"
-//#include "Runtime/Engine/Classes/Components/SplineComponent.h"
+#include "Runtime/Engine/Classes/Components/SplineComponent.h"
 
 // Sets default values
 AAnchovieCharacter::AAnchovieCharacter()
@@ -12,9 +12,9 @@ AAnchovieCharacter::AAnchovieCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	AIControllerClass = AAnchovieController::StaticClass();
+//	AIControllerClass = AAnchovieController::StaticClass();
 
-	WaypointAt = 0;
+	//WaypointAt = 0;
 	LightOn = false;
 
 	skeleMesh1 = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeleMesh1"));
@@ -30,35 +30,34 @@ AAnchovieCharacter::AAnchovieCharacter()
 	skeleMesh4->AttachTo(RootComponent);
 	skeleMesh5->AttachTo(RootComponent);
 	skeleMesh6->AttachTo(RootComponent);
-
+	/*
 	AAnchovieController* Controller;
-	Controller = Cast<AAnchovieController>(this->GetController());
+	Controller = Cast<AAnchovieController>(this->GetController());*/
 
 	OnActorBeginOverlap.AddDynamic(this, &AAnchovieCharacter::OnActorOverlaping);
 
 }
 
-/*void AAnchovieCharacter::Tick(float DeltaTime)
+void AAnchovieCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	if (LightOn == true)
+	if (PatrolPath != NULL)
 	{
-		if (PatrolPath != NULL)
+		if (LightOn == true)
+		
 		{
-			if (PatrolPath->GetSplineLength() >= DistanceOnSpline)
+			if (PatrolPath->GetSplineLength() <= DistanceOnSpline)
 			{
 				DistanceOnSpline = 0;
 			}
 			else
 			{
-				DistanceOnSpline += 10;
+				DistanceOnSpline += 2.5;
 			}
+			SetActorRotation(PatrolPath->GetRotationAtDistanceAlongSpline(DistanceOnSpline, ESplineCoordinateSpace::World));
+			SetActorLocation(PatrolPath->GetLocationAtDistanceAlongSpline(DistanceOnSpline, ESplineCoordinateSpace::World));
 		}
-	}
-	else
-	{
-		if (PatrolPath != NULL)
+		else
 		{
 			if (DistanceOnSpline <= 0)
 			{
@@ -66,14 +65,17 @@ AAnchovieCharacter::AAnchovieCharacter()
 			}
 			else
 			{
-				DistanceOnSpline -= 10;
+				DistanceOnSpline -= 2.5;
 			}
+			rotationTarget = PatrolPath->GetRotationAtDistanceAlongSpline(DistanceOnSpline, ESplineCoordinateSpace::World);
+			rotationTarget.Yaw += 180;
+			SetActorRotation(rotationTarget);
+			SetActorLocation(PatrolPath->GetLocationAtDistanceAlongSpline(DistanceOnSpline, ESplineCoordinateSpace::World));
 		}
 	}
 
-	this->SetActorRotation(PatrolPath->GetQuaternionAtDistanceAlongSpline(DistanceOnSpline, ESplineCoordinateSpace::World));
-	this->SetActorLocation(PatrolPath->GetLocationAtDistanceAlongSpline(DistanceOnSpline, ESplineCoordinateSpace::World));
-}*/
+
+}
 
 void AAnchovieCharacter::OnActorOverlaping(AActor* OtherActor)
 {
@@ -112,7 +114,7 @@ void AAnchovieCharacter::OnActorOverlaping(AActor* OtherActor)
 		}
 	}
 }
-
+/*
 void AAnchovieCharacter::NextWayPoint()
 {
 
@@ -156,4 +158,4 @@ void AAnchovieCharacter::NextWayPoint()
 			}
 		}
 	}
-}
+}*/
