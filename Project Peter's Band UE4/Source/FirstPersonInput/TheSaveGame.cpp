@@ -37,3 +37,13 @@ FVector UTheSaveGame::ReturnCheckPoint()
 	return CheckPointAt;
 
 }
+
+bool UTheSaveGame::GetIsStarting()
+{
+	return StartingGame;
+}
+
+void UTheSaveGame::SetIsStarting(bool starting)
+{
+	StartingGame = starting;
+}

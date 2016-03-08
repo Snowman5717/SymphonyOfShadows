@@ -34,6 +34,9 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = Basic)
 		uint32 UserIndex;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Save Stuff")
+		bool StartingGame;
+
 	UFUNCTION(BlueprintCallable, Category = "SaveStuff")
 		void ResetData();
 
@@ -45,5 +48,11 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "SaveStuff")
 		FVector ReturnCheckPoint();
+
+	UFUNCTION(BlueprintCallable, Category = "SaveStuff")
+		bool GetIsStarting();
+
+	UFUNCTION(BlueprintCallable, Category = "SaveStuff")
+		void SetIsStarting(bool starting);
 			
 };

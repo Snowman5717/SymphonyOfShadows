@@ -45,7 +45,6 @@ void ACheckpointCollider::OnActorOverlap(AActor* OtherActor)
 			Cast<APlayerCharacter>(OtherActor)->SavePlayerGame(SectionNumber, GetActorLocation());
 		}
 	}
-	GEngine->AddOnScreenDebugMessage(1, 3, FColor::Cyan, Cast<APlayerCharacter>(OtherActor)->GetSection().ToString());
 }
 
 //void ACheckpointCollider::OnActorOverlapEnd(AActor* OtherActor)
