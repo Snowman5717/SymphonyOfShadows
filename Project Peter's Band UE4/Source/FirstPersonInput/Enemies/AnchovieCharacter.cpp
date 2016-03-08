@@ -17,12 +17,17 @@ AAnchovieCharacter::AAnchovieCharacter()
 	//WaypointAt = 0;
 	LightOn = false;
 
+	AnchovySpeed = 333;
+
 	skeleMesh1 = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeleMesh1"));
 	skeleMesh2 = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeleMesh2"));
 	skeleMesh3 = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeleMesh3"));
 	skeleMesh4 = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeleMesh4"));
 	skeleMesh5 = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeleMesh5"));
 	skeleMesh6 = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeleMesh6"));
+	skeleMesh7 = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeleMesh7"));
+	skeleMesh8 = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeleMesh8"));
+	skeleMesh9 = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeleMesh9"));
 
 	skeleMesh1->AttachTo(RootComponent);
 	skeleMesh2->AttachTo(RootComponent);
@@ -30,6 +35,9 @@ AAnchovieCharacter::AAnchovieCharacter()
 	skeleMesh4->AttachTo(RootComponent);
 	skeleMesh5->AttachTo(RootComponent);
 	skeleMesh6->AttachTo(RootComponent);
+	skeleMesh7->AttachTo(RootComponent);
+	skeleMesh8->AttachTo(RootComponent);
+	skeleMesh9->AttachTo(RootComponent);
 	/*
 	AAnchovieController* Controller;
 	Controller = Cast<AAnchovieController>(this->GetController());*/
@@ -52,7 +60,7 @@ void AAnchovieCharacter::Tick(float DeltaTime)
 			}
 			else
 			{
-				DistanceOnSpline += 2.5;
+				DistanceOnSpline += AnchovySpeed * DeltaTime;
 			}
 			SetActorRotation(PatrolPath->GetRotationAtDistanceAlongSpline(DistanceOnSpline, ESplineCoordinateSpace::World));
 			SetActorLocation(PatrolPath->GetLocationAtDistanceAlongSpline(DistanceOnSpline, ESplineCoordinateSpace::World));
@@ -65,7 +73,7 @@ void AAnchovieCharacter::Tick(float DeltaTime)
 			}
 			else
 			{
-				DistanceOnSpline -= 2.5;
+				DistanceOnSpline -= AnchovySpeed * DeltaTime;
 			}
 			rotationTarget = PatrolPath->GetRotationAtDistanceAlongSpline(DistanceOnSpline, ESplineCoordinateSpace::World);
 			rotationTarget.Yaw += 180;
