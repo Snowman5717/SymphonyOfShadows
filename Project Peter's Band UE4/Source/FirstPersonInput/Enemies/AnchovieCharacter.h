@@ -43,6 +43,16 @@ public:
 	UPROPERTY(EditAnywhere)
 		USkeletalMeshComponent* skeleMesh6;
 
+	UPROPERTY(EditAnywhere)
+		USkeletalMeshComponent* skeleMesh7;
+
+	UPROPERTY(EditAnywhere)
+		USkeletalMeshComponent* skeleMesh8;
+
+	UPROPERTY(EditAnywhere)
+		USkeletalMeshComponent* skeleMesh9;
+
+
 	/*UPROPERTY(EditAnywhere)
 		TArray<AActor*> Waypoints;*/
 
@@ -66,6 +76,9 @@ public:
 
 	UPROPERTY()
 		float DistanceOnSpline;
+
+	UPROPERTY(EditAnywhere)
+		float AnchovySpeed;
 
 	FRotator rotationTarget;
 
