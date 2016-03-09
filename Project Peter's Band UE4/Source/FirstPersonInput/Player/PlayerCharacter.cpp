@@ -265,7 +265,10 @@ void APlayerCharacter::ActivateButton()
 		}
 		else if (InteractableObject && InteractableObject->GetClass()->IsChildOf(ALightSwitch::StaticClass()) == false)
 		{
-			InteractableObject->Interact(this);
+			if (FVector::Dist(GetActorLocation(), InteractableObject->GetActorLocation()) < 250)
+			{
+				InteractableObject->Interact(this);
+			}
 		}
 	}
 }
