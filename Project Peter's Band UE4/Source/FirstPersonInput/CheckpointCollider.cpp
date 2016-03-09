@@ -31,7 +31,7 @@ void ACheckpointCollider::BeginPlay()
 void ACheckpointCollider::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
-
+	
 }
 
 void ACheckpointCollider::OnActorOverlap(AActor* OtherActor)
@@ -45,7 +45,7 @@ void ACheckpointCollider::OnActorOverlap(AActor* OtherActor)
 			APlayerCharacter* Player = Cast<APlayerCharacter>(OtherActor); 
 			if (Player)
 			{
-				Player->SavePlayerGame(SectionNumber, GetActorLocation());
+				//Player->SavePlayerGame(SectionNumber, GetActorLocation());
 			}
 		}
 	}

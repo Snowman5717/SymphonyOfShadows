@@ -23,7 +23,7 @@ EBTNodeResult::Type USetMaxWalkSpeed::ExecuteTask(UBehaviorTreeComponent& OwnerC
 
 		if (AnnaCharacter)
 		{
-			AnnaCharacter->CharacterMovement->MaxWalkSpeed = DesiredMaxSpeed;
+			AnnaCharacter->GetCharacterMovement()->MaxWalkSpeed = DesiredMaxSpeed;
 
 			EBTNodeResult::Succeeded;
 		}
