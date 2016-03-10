@@ -26,6 +26,9 @@ public:
 		FVector CheckPointAt;
 
 	UPROPERTY(VisibleAnywhere, Category = Basic)
+		FRotator pRotation;
+
+	UPROPERTY(VisibleAnywhere, Category = Basic)
 		FName PlayerStart;
 
 	UPROPERTY(VisibleAnywhere, Category = Basic)
@@ -41,13 +44,16 @@ public:
 		void ResetData();
 
 	UFUNCTION(BlueprintCallable, Category = "SaveStuff")
-		void SaveData(FName loadingLevel, FVector cp);
+		void SaveData(FName loadingLevel, FVector cp, FRotator rotation);
 
 	UFUNCTION(BlueprintCallable, Category = "SaveStuff")
 		FName ReturnLevelToLoad();
 
 	UFUNCTION(BlueprintCallable, Category = "SaveStuff")
 		FVector ReturnCheckPoint();
+
+	UFUNCTION(BlueprintCallable, Category = "SaveStuff")
+		FRotator ReturnRotation();
 
 	UFUNCTION(BlueprintCallable, Category = "SaveStuff")
 		bool GetIsStarting();

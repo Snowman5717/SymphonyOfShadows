@@ -19,10 +19,11 @@ void UTheSaveGame::ResetData()
 	PlayerStart = "PlayerStart";
 }
 
-void UTheSaveGame::SaveData(FName loadingLevel, FVector cp)
+void UTheSaveGame::SaveData(FName loadingLevel, FVector cp, FRotator rotation)
 {
 	LevelToLoad = loadingLevel;
 	CheckPointAt = cp;
+	pRotation = rotation;
 }
 
 FName UTheSaveGame::ReturnLevelToLoad()
@@ -35,6 +36,13 @@ FVector UTheSaveGame::ReturnCheckPoint()
 {
 
 	return CheckPointAt;
+
+}
+
+FRotator UTheSaveGame::ReturnRotation()
+{
+
+	return pRotation;
 
 }
 

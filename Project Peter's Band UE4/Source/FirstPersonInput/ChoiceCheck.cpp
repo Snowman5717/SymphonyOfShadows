@@ -44,8 +44,7 @@ void AChoiceCheck::OnActorOverlap(AActor* OtherActor)
 
 		if (Player)
 		{
-			Player->SetLastChoice(realityChoice);
-			GEngine->AddOnScreenDebugMessage(1, 3, FColor::Yellow, FString::Printf(TEXT("Bool: %s"), realityChoice ? TEXT("true") : TEXT("false")));
+			Player->SetLastChoice(1);
 		}
 	}
 }
