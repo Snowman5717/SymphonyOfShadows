@@ -335,6 +335,8 @@ void APlayerCharacter::SetLastChoice(bool ChoiceMade)
 
 bool APlayerCharacter::GetLastChoice()
 {
+	//true = reality
+	//false = fantasy
 	return LastChoiceMade;
 }
 

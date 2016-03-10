@@ -11,7 +11,7 @@ class FIRSTPERSONINPUT_API AChoiceCheck : public AActor
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere)
-	bool RealityChoice;
+	bool realityChoice;
 	
 public:	
 	// Sets default values for this actor's properties

@@ -56,7 +56,9 @@ public:
 	void SetObjectLifted(ALiftableBox* Box);
 
 	//Getter and Setter for the choice narrative options in the branching path system
+	UFUNCTION(BlueprintCallable, Category = "Choice Stuff")
 	bool GetLastChoice();
+
 	void SetLastChoice(bool ChoiceMade);
 
 	UFUNCTION()
