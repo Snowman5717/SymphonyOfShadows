@@ -335,6 +335,8 @@ void APlayerCharacter::SetLastChoice(bool ChoiceMade)
 
 bool APlayerCharacter::GetLastChoice()
 {
+	//true = reality
+	//false = fantasy
 	return LastChoiceMade;
 }
 
@@ -488,7 +490,7 @@ APlayerController* APlayerCharacter::GetPlayerController()
 
 void APlayerCharacter::SavePlayerGame(FName section, FVector location)
 {
-	SaveGameInstance->SaveData(section, location);
+	SaveGameInstance->SaveData(section, location, GetActorRotation());
 	sectionName = section;
 }
 

@@ -45,7 +45,7 @@ void ACheckpointCollider::OnActorOverlap(AActor* OtherActor)
 			APlayerCharacter* Player = Cast<APlayerCharacter>(OtherActor); 
 			if (Player)
 			{
-				//Player->SavePlayerGame(SectionNumber, GetActorLocation());
+				Player->SavePlayerGame(SectionNumber, GetActorLocation());
 			}
 		}
 	}
