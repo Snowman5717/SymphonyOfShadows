@@ -52,6 +52,9 @@ public:
 	UPROPERTY(EditAnywhere)
 		USkeletalMeshComponent* skeleMesh9;
 
+	UPROPERTY(EditAnywhere)
+		USoundCue* SplashSound;
+
 
 	/*UPROPERTY(EditAnywhere)
 		TArray<AActor*> Waypoints;*/
