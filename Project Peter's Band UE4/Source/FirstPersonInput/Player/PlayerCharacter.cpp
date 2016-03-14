@@ -6,6 +6,7 @@
 #include "Interactables/LightSwitch.h"
 #include "Animations/PeterAnimInstance.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "ChoiceCheck.h"
 #include "PlayerCharacter.h"
 
 
@@ -87,7 +88,7 @@ void APlayerCharacter::Tick(float DeltaTime)
 		{
 		}
 
-		GEngine->AddOnScreenDebugMessage(10, 1, FColor::Blue, TEXT("BOOP"));
+		//GEngine->AddOnScreenDebugMessage(10, 1, FColor::Blue, TEXT("BOOP"));
 	}
 	if (CameraIsChanging == true)
 	{
@@ -345,6 +346,7 @@ void APlayerCharacter::OnActorOverlap(AActor* OtherActor)
 	{
 		if (OtherActor->GetName().Contains("Fantasy"))
 		{
+			//if (Cast<AChoiceCheck>(OtherActor))
 			FantasyCounter++;
 			SaveGameInstance->SavedFantasyCounter = FantasyCounter;
 			CameraIsChanging = true;
@@ -429,12 +431,12 @@ void APlayerCharacter::FadeToWhite()
 	DistanceToX = GetDistanceTo(WhereBeAnna);
 	if (DistanceToX > 50)
 	{
-		GetFirstPersonCameraComponent()->PostProcessSettings.ColorOffset.X = 8 / DistanceToX;
-		GetFirstPersonCameraComponent()->PostProcessSettings.ColorOffset.Y = 8 / DistanceToX;
-		GetFirstPersonCameraComponent()->PostProcessSettings.ColorOffset.Z = 8 / DistanceToX;
-		GetFirstPersonCameraComponent()->PostProcessSettings.ColorContrast.X = 1 - 8 / DistanceToX;
-		GetFirstPersonCameraComponent()->PostProcessSettings.ColorContrast.Y = 1 - 8 / DistanceToX;
-		GetFirstPersonCameraComponent()->PostProcessSettings.ColorContrast.Z = 1 - 8 / DistanceToX;
+		GetFirstPersonCameraComponent()->PostProcessSettings.ColorOffset.X = 20 / DistanceToX;
+		GetFirstPersonCameraComponent()->PostProcessSettings.ColorOffset.Y = 20/ DistanceToX;
+		GetFirstPersonCameraComponent()->PostProcessSettings.ColorOffset.Z = 20 / DistanceToX;
+		GetFirstPersonCameraComponent()->PostProcessSettings.ColorContrast.X = 1 - 20 / DistanceToX;
+		GetFirstPersonCameraComponent()->PostProcessSettings.ColorContrast.Y = 1 - 20 / DistanceToX;
+		GetFirstPersonCameraComponent()->PostProcessSettings.ColorContrast.Z = 1 - 20 / DistanceToX;
 	}
 	else
 	{
