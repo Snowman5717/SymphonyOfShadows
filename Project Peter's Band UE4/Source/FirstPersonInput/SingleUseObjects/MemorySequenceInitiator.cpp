@@ -43,7 +43,7 @@ void AMemorySequenceInitiator::OnActorOverlapBegin(AActor *OtherActor)
 		{
 			bool Choice = Cast<APlayerCharacter>(OtherActor)->GetLastChoice();
 
-			if (Choice == true)
+			if (Choice == false)
 			{
 				//Teleport to MemSegA
 				GEngine->AddOnScreenDebugMessage(1, 2.f, FColor::Red, TEXT("MEMORY SEGMENT A"));
