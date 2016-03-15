@@ -48,3 +48,8 @@ void AChoiceCheck::OnActorOverlap(AActor* OtherActor)
 		}
 	}
 }
+
+bool AChoiceCheck::IsReality()
+{
+	return realityChoice;
+}

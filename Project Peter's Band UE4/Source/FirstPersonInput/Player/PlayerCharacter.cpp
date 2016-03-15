@@ -344,13 +344,22 @@ void APlayerCharacter::OnActorOverlap(AActor* OtherActor)
 {
 	if (OtherActor != GetOwner())
 	{
-		if (OtherActor->GetName().Contains("Fantasy"))
+		if (OtherActor->GetClass()->IsChildOf(AChoiceCheck::StaticClass()))
 		{
-			//if (Cast<AChoiceCheck>(OtherActor))
-			FantasyCounter++;
-			SaveGameInstance->SavedFantasyCounter = FantasyCounter;
-			CameraIsChanging = true;
-			OtherActor->Destroy();
+			if (Cast<AChoiceCheck>(OtherActor)->IsReality())
+			{
+				FantasyCounter--;
+				SaveGameInstance->SavedFantasyCounter = FantasyCounter;
+				CameraIsChanging = true;
+				OtherActor->Destroy();
+			}
+			else
+			{
+				FantasyCounter++;
+				SaveGameInstance->SavedFantasyCounter = FantasyCounter;
+				CameraIsChanging = true;
+				OtherActor->Destroy();
+			}
 		}
 		if (OtherActor->GetName().Contains("Dance"))
 		{
