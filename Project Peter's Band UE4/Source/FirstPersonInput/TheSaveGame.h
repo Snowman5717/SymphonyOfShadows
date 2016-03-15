@@ -61,4 +61,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "SaveStuff")
 		void SetIsStarting(bool starting);
 			
+	UFUNCTION(BlueprintCallable, Category = "SaveStuff")
+	float ReturnFantasyCounter();
+
 };

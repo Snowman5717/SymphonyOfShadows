@@ -55,3 +55,8 @@ void UTheSaveGame::SetIsStarting(bool starting)
 {
 	StartingGame = starting;
 }
+
+float UTheSaveGame::ReturnFantasyCounter()
+{
+	return SavedFantasyCounter;
+}

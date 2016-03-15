@@ -6,6 +6,7 @@
 #include "Interactables/LightSwitch.h"
 #include "Animations/PeterAnimInstance.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "ChoiceCheck.h"
 #include "PlayerCharacter.h"
 
 
@@ -52,10 +53,9 @@ void APlayerCharacter::BeginPlay()
 
 	bCurrentlyLiftingBox = false;
 
-	//FANTASY CAMERA CODE//
-	//FantasyCounter = SaveGameInstance->SavedFantasyCounter;
-	//UpdateCamera(FantasyCounter);
-	//FANTASY CAMERA CODE//
+	FantasyCounter = SaveGameInstance->SavedFantasyCounter;
+	UpdateCamera(FantasyCounter);
+
 }
 
 
@@ -88,11 +88,11 @@ void APlayerCharacter::Tick(float DeltaTime)
 		{
 		}
 
-		GEngine->AddOnScreenDebugMessage(10, 1, FColor::Blue, TEXT("BOOP"));
+		//GEngine->AddOnScreenDebugMessage(10, 1, FColor::Blue, TEXT("BOOP"));
 	}
 	if (CameraIsChanging == true)
 	{
-		//UpdateCamera(FantasyCounter);
+		UpdateCamera(FantasyCounter);
 	}
 	if (ShowTime == true)
 	{
@@ -344,11 +344,24 @@ void APlayerCharacter::OnActorOverlap(AActor* OtherActor)
 {
 	if (OtherActor != GetOwner())
 	{
-		if (OtherActor->GetName().Contains("Fantasy"))
+		if (OtherActor->GetClass()->IsChildOf(AChoiceCheck::StaticClass()))
 		{
-			//FantasyCounter++;
-			//SaveGameInstance->SavedFantasyCounter = FantasyCounter;
-			//CameraIsChanging = true;
+			if (Cast<AChoiceCheck>(OtherActor)->IsReality())
+			{
+				FantasyCounter--;
+				SaveGameInstance->SavedFantasyCounter = FantasyCounter;
+				CameraIsChanging = true;
+				SetLastChoice(true);
+				OtherActor->Destroy();
+			}
+			else
+			{
+				FantasyCounter++;
+				SaveGameInstance->SavedFantasyCounter = FantasyCounter;
+				CameraIsChanging = true;
+				SetLastChoice(false);
+				OtherActor->Destroy();
+			}
 		}
 		if (OtherActor->GetName().Contains("Dance"))
 		{
@@ -427,24 +440,14 @@ void APlayerCharacter::FadeToWhite()
 {
 
 	DistanceToX = GetDistanceTo(WhereBeAnna);
-	if (DistanceToX > 500)
+	if (DistanceToX > 50)
 	{
-		GetFirstPersonCameraComponent()->PostProcessSettings.ColorOffset.X = 25 / DistanceToX;
-		GetFirstPersonCameraComponent()->PostProcessSettings.ColorOffset.Y = 25 / DistanceToX;
-		GetFirstPersonCameraComponent()->PostProcessSettings.ColorOffset.Z = 25 / DistanceToX;
-		GetFirstPersonCameraComponent()->PostProcessSettings.ColorContrast.X = 1 - 25 / DistanceToX;
-		GetFirstPersonCameraComponent()->PostProcessSettings.ColorContrast.Y = 1 - 25 / DistanceToX;
-		GetFirstPersonCameraComponent()->PostProcessSettings.ColorContrast.Z = 1 - 25 / DistanceToX;
-	}
-
-	else if (DistanceToX > 100)
-	{
-		GetFirstPersonCameraComponent()->PostProcessSettings.ColorOffset.X = 50 / DistanceToX;
-		GetFirstPersonCameraComponent()->PostProcessSettings.ColorOffset.Y = 50 / DistanceToX;
-		GetFirstPersonCameraComponent()->PostProcessSettings.ColorOffset.Z = 50 / DistanceToX;
-		GetFirstPersonCameraComponent()->PostProcessSettings.ColorContrast.X = 1 - 50 / DistanceToX;
-		GetFirstPersonCameraComponent()->PostProcessSettings.ColorContrast.Y = 1 - 50 / DistanceToX;
-		GetFirstPersonCameraComponent()->PostProcessSettings.ColorContrast.Z = 1 - 50 / DistanceToX;
+		GetFirstPersonCameraComponent()->PostProcessSettings.ColorOffset.X = 20 / DistanceToX;
+		GetFirstPersonCameraComponent()->PostProcessSettings.ColorOffset.Y = 20/ DistanceToX;
+		GetFirstPersonCameraComponent()->PostProcessSettings.ColorOffset.Z = 20 / DistanceToX;
+		GetFirstPersonCameraComponent()->PostProcessSettings.ColorContrast.X = 1 - 20 / DistanceToX;
+		GetFirstPersonCameraComponent()->PostProcessSettings.ColorContrast.Y = 1 - 20 / DistanceToX;
+		GetFirstPersonCameraComponent()->PostProcessSettings.ColorContrast.Z = 1 - 20 / DistanceToX;
 	}
 	else
 	{

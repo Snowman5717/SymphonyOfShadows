@@ -118,6 +118,7 @@ void AAnchovieCharacter::OnActorOverlaping(AActor* OtherActor)
 						LightOn = false;
 					}
 				}
+				//UGameplayStatics::PlaySoundAtLocation(GetWorld(), SplashSound, GetActorLocation());
 			}
 		}
 	}

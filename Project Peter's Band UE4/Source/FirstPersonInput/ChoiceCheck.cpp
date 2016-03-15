@@ -44,7 +44,12 @@ void AChoiceCheck::OnActorOverlap(AActor* OtherActor)
 
 		if (Player)
 		{
-			Player->SetLastChoice(1);
+			//Player->SetLastChoice(realityChoice);
 		}
 	}
+}
+
+bool AChoiceCheck::IsReality()
+{
+	return realityChoice;
 }
