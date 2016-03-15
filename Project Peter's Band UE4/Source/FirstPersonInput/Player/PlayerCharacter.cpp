@@ -351,6 +351,7 @@ void APlayerCharacter::OnActorOverlap(AActor* OtherActor)
 				FantasyCounter--;
 				SaveGameInstance->SavedFantasyCounter = FantasyCounter;
 				CameraIsChanging = true;
+				SetLastChoice(true);
 				OtherActor->Destroy();
 			}
 			else
@@ -358,6 +359,7 @@ void APlayerCharacter::OnActorOverlap(AActor* OtherActor)
 				FantasyCounter++;
 				SaveGameInstance->SavedFantasyCounter = FantasyCounter;
 				CameraIsChanging = true;
+				SetLastChoice(false);
 				OtherActor->Destroy();
 			}
 		}
