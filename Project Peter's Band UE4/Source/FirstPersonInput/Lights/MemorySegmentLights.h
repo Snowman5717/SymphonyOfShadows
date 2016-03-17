@@ -58,6 +58,11 @@ public:
 	UPROPERTY(EditAnywhere, Category = MemoryLights)
 	TSubclassOf<class AMemorySegmentLights> MemorySegmentLight;
 
+	UPROPERTY(EditAnywhere)
+	TArray<FString> Subtitles;
+
+	uint8 LightCount;
+
 	//A public reference to the audio controller object
 	UPROPERTY(EditAnywhere)
 	AAudioController* AudioController;

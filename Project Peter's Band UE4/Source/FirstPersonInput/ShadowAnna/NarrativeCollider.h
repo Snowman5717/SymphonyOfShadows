@@ -26,6 +26,9 @@ public:
 	UPROPERTY(EditAnywhere)
 	FString Subtitles;
 
+	UPROPERTY(EditAnywhere)
+	float Duration;
+
 protected:
 
 	UFUNCTION()
