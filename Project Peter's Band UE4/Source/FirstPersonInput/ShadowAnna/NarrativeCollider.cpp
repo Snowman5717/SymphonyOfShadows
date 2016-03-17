@@ -48,14 +48,10 @@ void ANarrativeCollider::OnActorOverlap(AActor* OtherActor)
 				if (PlayerHUD)
 				{
 
-<<<<<<< HEAD
+
 					GEngine->AddOnScreenDebugMessage(1, 1, FColor::Red, TEXT("Found the HUD"));
 
 					PlayerHUD->SetSubtitles(Subtitles, Duration);
-=======
-					PlayerHUD->SetSubtitles(Subtitles);
->>>>>>> origin/master
-
 				}
 			}
 		}
