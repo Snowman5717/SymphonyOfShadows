@@ -3,9 +3,11 @@
 #include "FirstPersonInput.h"
 #include "PlayerHUD.h"
 
-void APlayerHUD::SetSubtitles(FString Subs)
+void APlayerHUD::SetSubtitles(FString Subs, float Dur)
 {
 	Subtitles = Subs;
+
+	Duration = Dur;
 }
 
 

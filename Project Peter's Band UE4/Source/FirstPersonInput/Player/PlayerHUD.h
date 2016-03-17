@@ -27,11 +27,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FColor TextColor;
 
-	void SetSubtitles(FString Subs);
+	void SetSubtitles(FString Subs, float Duration);
 
 protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString Subtitles;	
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float Duration;
 	
 };

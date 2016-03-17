@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "FirstPersonInput.h"
+#include "Player/PlayerHUD.h"
 #include "MemorySegmentLights.h"
 
 
@@ -20,6 +21,8 @@ AMemorySegmentLights::AMemorySegmentLights()
 	//Creates a collision box that will be used when skippng is implemented
 	Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("Collider"));
 	Collider->AttachTo(SpotLight);
+
+	LightCount = 0;
 
 }
 
@@ -71,12 +74,23 @@ void AMemorySegmentLights::StartTimer()
 	UGameplayStatics::PlaySoundAtLocation(GetWorld(), StartSound, GetActorLocation());
 	UGameplayStatics::PlaySoundAtLocation(GetWorld(), AudioController->GetSoundToPlay(), GetActorLocation());
 
+	APlayerHUD* PlayerHUD = Cast<APlayerHUD>(UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetHUD());
+	
+	if (PlayerHUD && LightCount >= 1)
+	{
+		PlayerHUD->SetSubtitles(Subtitles[LightCount - 1], AudioController->GetCurrentSoundLength());
+	}
+
 	//If there are no more audio files to play then teleport the player out of the map
 	if (AudioController->GetCount() > AudioController->GetArraySize())
 	{
 		//Teleport the player out of the memory segment map
 		UGameplayStatics::OpenLevel(GetWorld(), MapToTeleportTo);
 	}
+
+	GEngine->AddOnScreenDebugMessage(1, 1, FColor::Red, FString::Printf(TEXT("Count: %i"), AudioController->GetCount()));
+
+	LightCount++;
 
 }
 
