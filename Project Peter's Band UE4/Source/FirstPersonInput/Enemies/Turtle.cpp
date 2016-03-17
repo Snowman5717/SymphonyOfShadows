@@ -38,8 +38,7 @@ void ATurtle::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
 
-	//GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Black, FString::Printf(TEXT("Turtle Physics: %s"), Collider->IsSimulatingPhysics() ? TEXT("true") : TEXT("false")));
-
+	
 	if (StatMesh->IsSimulatingPhysics())
 	{
 		StatMesh->SetPhysicsAngularVelocity(FVector(0, 0, SpinSpeed), false);
@@ -56,7 +55,6 @@ void ATurtle::Tick( float DeltaTime )
 void ATurtle::EnemyInteract(AActor* Interactor)
 {
 	//DO INTERACTIONS HERE
-	GEngine->AddOnScreenDebugMessage(1, 5, FColor::Red, StatMesh->IsSimulatingPhysics() ? TEXT("false") : TEXT("true"));
 	if (StatMesh->IsSimulatingPhysics())
 	{
 		StatMesh->SetSimulatePhysics(false);

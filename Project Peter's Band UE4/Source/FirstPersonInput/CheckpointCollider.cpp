@@ -40,7 +40,6 @@ void ACheckpointCollider::OnActorOverlap(AActor* OtherActor)
 	{
 		if (OtherActor->GetClass()->IsChildOf(APlayerCharacter::StaticClass()))
 		{
-			//GEngine->AddOnScreenDebugMessage(1, 2, FColor::Cyan, GetActorLocation());
 			
 			APlayerCharacter* Player = Cast<APlayerCharacter>(OtherActor); 
 			if (Player)

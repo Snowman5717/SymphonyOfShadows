@@ -64,8 +64,6 @@ void APlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	//GEngine->AddOnScreenDebugMessage(1, 1, FColor::Red, FString::Printf(TEXT("Z Velocity: %f"), GetVelocity().Z));
-
 	if (isWalkingForward || isWalkingRight)
 	{
 		if (CanJump())
@@ -88,7 +86,6 @@ void APlayerCharacter::Tick(float DeltaTime)
 		{
 		}
 
-		//GEngine->AddOnScreenDebugMessage(10, 1, FColor::Blue, TEXT("BOOP"));
 	}
 	if (CameraIsChanging == true)
 	{
@@ -244,8 +241,7 @@ void APlayerCharacter::ActivateButton()
 
 	if (TraceSuccess)
 	{
-		//GEngine->AddOnScreenDebugMessage(1, 1, FColor::Red, OutHit.GetActor()->GetName());
-
+		
 		AInteractable* InteractableObject = NULL;
 
 		InteractableObject = Cast<AInteractable>(OutHit.GetActor());
@@ -330,7 +326,6 @@ void APlayerCharacter::SetObjectLifted(ALiftableBox* Box)
 void APlayerCharacter::SetLastChoice(bool ChoiceMade)
 {
 	LastChoiceMade = ChoiceMade;
-	//GEngine->AddOnScreenDebugMessage(1, 1, FColor::Black, TEXT("DING"));
 }
 
 bool APlayerCharacter::GetLastChoice()
