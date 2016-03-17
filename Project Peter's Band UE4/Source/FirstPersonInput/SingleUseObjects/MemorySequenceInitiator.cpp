@@ -46,13 +46,11 @@ void AMemorySequenceInitiator::OnActorOverlapBegin(AActor *OtherActor)
 			if (Choice == false)
 			{
 				//Teleport to MemSegA
-				GEngine->AddOnScreenDebugMessage(1, 2.f, FColor::Red, TEXT("MEMORY SEGMENT A"));
 				UGameplayStatics::OpenLevel(GetWorld(), MemorySegmentA);	
 			}
 			else
 			{
 				//Teleport to MemSegB
-				GEngine->AddOnScreenDebugMessage(1, 2.f, FColor::Red, TEXT("MEMORY SEGMENT B"));
 				UGameplayStatics::OpenLevel(GetWorld(), MemorySegmentB);
 			}
 		}

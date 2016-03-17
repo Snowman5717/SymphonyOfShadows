@@ -85,7 +85,6 @@ void AWeightSwitch::Tick( float DeltaTime )
 			}
 		}
 
-	//GEngine->AddOnScreenDebugMessage(3, 2.f, FColor::Magenta, FString::Printf(TEXT("Objects Inside: %i"), OverlappingActors.Num()));
 }
 
 void AWeightSwitch::OnActorOverlap(AActor* OtherActor)
@@ -101,7 +100,6 @@ void AWeightSwitch::OnActorOverlapEnd(AActor* OtherActor)
 {
 	if (OtherActor != GetOwner())
 	{
-		//GEngine->AddOnScreenDebugMessage(1, 2, FColor::Green, TEXT("OUT"));
 		NumOfObjects--;
 	}
 }

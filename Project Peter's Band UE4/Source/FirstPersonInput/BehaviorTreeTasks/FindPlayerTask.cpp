@@ -28,7 +28,6 @@ EBTNodeResult::Type UFindPlayerTask::ExecuteTask(UBehaviorTreeComponent& OwnerCo
 
 	ACharacter* PCharacter = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
 
-	GEngine->AddOnScreenDebugMessage(1, 1, FColor::Red, PCharacter->GetName());
 	if(PCharacter)
 	{
 		OwnerComp.GetBlackboardComponent()->SetValue<UBlackboardKeyType_Object>(BlackboardKey.GetSelectedKeyID(), PCharacter);

@@ -43,9 +43,7 @@ void AMop::Tick(float DeltaTime)
 	DrawDebugCylinder(GetWorld(), StickTop, StickBottom, StickRadius, CylinderSegments, StickColor, true, DeltaTime*2);
 	*/
 
-	//GEngine->AddOnScreenDebugMessage(4, 2.f, FColor::Red, (TEXT("ForwardVector: " + RootComponent->GetForwardVector().ToString())));
-	//GEngine->AddOnScreenDebugMessage(5, 2.f, FColor::Magenta, (TEXT("Rot: " + RootComponent->GetComponentRotation().ToString() )));
-
+	
 }
 
 void AMop::OnActorOverlapBegin(AActor* OtherActor)
