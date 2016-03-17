@@ -44,11 +44,11 @@ void AInteractDoors::Tick( float DeltaTime )
 
 	if (bIsOpen)
 	{
-			SetActorRotation(FMath::RInterpTo(GetActorRotation(), rotationOpen, DeltaTime, 10.f));
+			SetActorRotation(FMath::RInterpTo(GetActorRotation(), rotationOpen, DeltaTime, 5.f));
 	}
 	else
 	{
-			SetActorRotation(FMath::RInterpTo(GetActorRotation(), rotationClosed, DeltaTime, 10.f));
+			SetActorRotation(FMath::RInterpTo(GetActorRotation(), rotationClosed, DeltaTime, 5.f));
 	}
 }
 

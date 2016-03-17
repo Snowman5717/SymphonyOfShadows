@@ -19,6 +19,9 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = Basic)
 		float SavedFantasyCounter;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "End Stuff")
+		bool endGame;
+
 	UPROPERTY(VisibleAnywhere, Category = Basic)
 		FName LevelToLoad;
 
@@ -64,4 +67,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "SaveStuff")
 	float ReturnFantasyCounter();
 
+	UFUNCTION(BlueprintCallable, Category = "End Stuff")
+	bool IsGameEnded();
+
+	UFUNCTION(BlueprintCallable, Category = "End Stuff")
+	void SetGameEnded(bool endOrNah);
 };

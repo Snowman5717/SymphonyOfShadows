@@ -374,6 +374,10 @@ void APlayerCharacter::OnActorOverlap(AActor* OtherActor)
 			}
 
 		}
+		if (OtherActor->ActorHasTag("End"))
+		{
+			SaveGameInstance->endGame = true;
+		}
 	}
 }
 
