@@ -44,13 +44,11 @@ void AInteractDoors::Tick( float DeltaTime )
 
 	if (bIsOpen)
 	{
-		//SkeletalMesh->SetRelativeRotation(FMath::RInterpTo(GetActorRotation(), rotationOpen, DeltaTime, 5.f));
-			SetActorRotation(FMath::RInterpTo(GetActorRotation(), rotationOpen, DeltaTime, 5.f));
+		SetActorRotation(FMath::RInterpTo(GetActorRotation(), rotationOpen, DeltaTime, 5.f));
 	}
 	else
 	{
-		//SkeletalMesh->SetRelativeRotation(FMath::RInterpTo(GetActorRotation(), rotationClosed, DeltaTime, 5.f));
-			SetActorRotation(FMath::RInterpTo(GetActorRotation(), rotationClosed, DeltaTime, 5.f));
+		SetActorRotation(FMath::RInterpTo(GetActorRotation(), rotationClosed, DeltaTime, 5.f));
 	}
 }
 
