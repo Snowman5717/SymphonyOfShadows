@@ -38,5 +38,4 @@ void AShadowAnnaCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	GEngine->AddOnScreenDebugMessage(2, 1, FColor::Red, FString::Printf(TEXT("bStartedJump: %f"),GetVelocity().Size()));
 }

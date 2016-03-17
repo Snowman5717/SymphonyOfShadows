@@ -19,13 +19,11 @@ void APortalManager::BeginPlay()
 	
 	if (APortals.Num() != BPortals.Num())
 	{
-		GEngine->AddOnScreenDebugMessage(100, -1, FColor::Red, "PortalManager requires PortalA and PortalB to have an equal number of elements.");
 		return;
 	}
 
 	if (OriginActiveMapZone == NULL)
 	{
-		GEngine->AddOnScreenDebugMessage(200, -1, FColor::Red, "PortalManager requires an ActiveMapZone to function.");
 		return;
 	}
 
@@ -278,14 +276,12 @@ void APortalManager::Tick( float DeltaTime )
 				//Otherwise something went wrong.
 				else
 				{
-					GEngine->AddOnScreenDebugMessage(200, 1.f, FColor::Green, MapInstances[i].ActiveMapZone->GetName() + "'s portals are already occupied.");
 					break;
 				}
 
 				//Change the active map to the new map.
 				ActiveMapIndex = i;
-				GEngine->AddOnScreenDebugMessage(200, 1.f, FColor::Green, "Player found @: " + MapInstances[i].ActiveMapZone->GetName() +
-					", @index: " + FString::FromInt(i));
+
 				
 				FString APortalDEBUG = "APortal: ";
 				if (MapInstances[i].APortal != NULL)
@@ -309,8 +305,6 @@ void APortalManager::Tick( float DeltaTime )
 					BPortalDEBUG += "              BLinkedTo: " + MapInstances[i].BLinkedTo->GetName();
 				}
 
-				GEngine->AddOnScreenDebugMessage(300, 10.f, FColor::Red, APortalDEBUG);
-				GEngine->AddOnScreenDebugMessage(400, 10.f, FColor::Red, BPortalDEBUG);
 				break;
 
 			}

@@ -49,8 +49,6 @@ bool ALiftableBox::bIsAbove(AActor* Player)
 
 	PlayerToBox.Normalize();
 
-	GEngine->AddOnScreenDebugMessage(3, 2.f, FColor::Green, FString::Printf(TEXT("Normalized Z Vector : %f"), PlayerToBox.Z));
-
 	if (PlayerToBox.Z < 0.60f)
 	{
 		return true;
