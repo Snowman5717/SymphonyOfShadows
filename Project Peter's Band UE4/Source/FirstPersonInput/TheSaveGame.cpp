@@ -17,6 +17,7 @@ void UTheSaveGame::ResetData()
 	LevelToLoad = "SectionZero";
 	CheckPointAt = FVector(-220.0f, 340.0f, 102.0f);
 	PlayerStart = "PlayerStart";
+	endGame = false;
 }
 
 void UTheSaveGame::SaveData(FName loadingLevel, FVector cp, FRotator rotation)
@@ -59,4 +60,14 @@ void UTheSaveGame::SetIsStarting(bool starting)
 float UTheSaveGame::ReturnFantasyCounter()
 {
 	return SavedFantasyCounter;
+}
+
+bool UTheSaveGame::IsGameEnded()
+{
+	return endGame;
+}
+
+void UTheSaveGame::SetGameEnded(bool endOrNah)
+{
+	endGame = endOrNah;
 }
