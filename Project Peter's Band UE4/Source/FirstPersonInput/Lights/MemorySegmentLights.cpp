@@ -76,10 +76,10 @@ void AMemorySegmentLights::StartTimer()
 
 	APlayerHUD* PlayerHUD = Cast<APlayerHUD>(UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetHUD());
 	
-	if (PlayerHUD && LightCount >= 1)
-	{
-		PlayerHUD->SetSubtitles(Subtitles[LightCount - 1], AudioController->GetCurrentSoundLength());
-	}
+	//if (PlayerHUD && LightCount >= 1)
+	//{
+	//	PlayerHUD->SetSubtitles(Subtitles[LightCount - 1], AudioController->GetCurrentSoundLength());
+	//}
 
 	//If there are no more audio files to play then teleport the player out of the map
 	if (AudioController->GetCount() > AudioController->GetArraySize())
@@ -87,8 +87,6 @@ void AMemorySegmentLights::StartTimer()
 		//Teleport the player out of the memory segment map
 		UGameplayStatics::OpenLevel(GetWorld(), MapToTeleportTo);
 	}
-
-	GEngine->AddOnScreenDebugMessage(1, 1, FColor::Red, FString::Printf(TEXT("Count: %i"), AudioController->GetCount()));
 
 	LightCount++;
 
