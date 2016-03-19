@@ -49,14 +49,3 @@ void ACheckpointCollider::OnActorOverlap(AActor* OtherActor)
 		}
 	}
 }
-
-//void ACheckpointCollider::OnActorOverlapEnd(AActor* OtherActor)
-//{
-//	if (OtherActor != GetOwner())
-//	{
-//		if (OtherActor->GetClass()->IsChildOf(APlayerCharacter::StaticClass()))
-//		{
-//			GEngine->AddOnScreenDebugMessage(1, 2, FColor::Red, OtherActor->GetName());
-//		}
-//	}
-//}

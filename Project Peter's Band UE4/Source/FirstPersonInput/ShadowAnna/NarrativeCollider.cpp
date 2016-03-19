@@ -33,25 +33,6 @@ void ANarrativeCollider::OnActorOverlap(AActor* OtherActor)
 		{
 			UGameplayStatics::PlaySoundAtLocation(GetWorld(), NarrativeSound, GetActorLocation());
 		}
-
-		if (!Subtitles.IsEmpty())
-		{
-
-
-			APlayerCharacter* PlayerCharacter = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
-
-			if (PlayerCharacter)
-			{
-
-				APlayerHUD* PlayerHUD = Cast<APlayerHUD>(PlayerCharacter->GetPlayerController()->GetHUD());
-
-				if (PlayerHUD)
-				{
-					PlayerHUD->SetSubtitles(Subtitles, Duration);
-
-				}
-			}
-		}
 	}
 
 	Destroy();
